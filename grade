@@ -1,0 +1,18 @@
+name = input("이름:")
+eng = int(input("영어성적:"))
+math = int(input("수학성적:"))
+total= eng+math; avg=total/2
+if 0<eng<101 and 0<math<101 :
+    if avg>=90: grade="A"
+    elif 70<=avg<90: grade="B"
+    elif 60<avg<70: grade="C"
+    elif avg>=60: grade="D"
+    else : grade="F"
+    print(name,"\t평균",avg,"학점",grade)
+
+    if avg>=90:
+        print("성적우수")
+    elif avg<=60:
+        print("재수강")
+else:
+    print("잘못된 점수입력입니다")
