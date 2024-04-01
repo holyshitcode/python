@@ -1,0 +1,4 @@
+for dan in range (1,10):
+    for n in range(2,10):
+        print(n,'X',dan,'=',(dan*n),end='\t')
+    print()
