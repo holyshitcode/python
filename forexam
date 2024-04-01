@@ -1,0 +1,23 @@
+n = int(input("학생수 입력:"))
+ctotal= count=0
+for i in range (0,n):
+    count+=1
+    print("\n%d번째 학생 성적처리" %count)
+    name = input("이름 입력:")
+    math = int(input("수학성적:"))
+    eng = int(input("영어성적:"))
+    total= math+eng
+    avg=total/2
+    if avg>=90:
+        rank="A"
+    elif 70<=avg<90 :
+        rank="B"
+    else:
+        rank="C"
+    print("-"*60)
+    print("이\t름\t\t영어\t수학\t총점\t평균\t학점")
+    print( name,"\t\t\t", eng,"\t",    math,"\t"  , total,"\t", avg,  "\t" , rank)
+    print("-"*60)
+    ctotal+=total
+cavg=ctotal/(2*n)
+print("\n학생수:%d, 전체평균: %6.2f\n" %(n,cavg))
