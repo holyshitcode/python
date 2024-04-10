@@ -1,0 +1,26 @@
+"""
+이 프로그램은 학년별로 해야할일을 출력해주는 프로그램입니다.
+"""
+grade = input("학년을 입력해주세요(1,2,3,4), 종료하려면(q):\n") #선택값입력받기
+exit=0 #탈출조건값
+while exit==0:
+    if grade=="q":              #선택한값에따라서 지정된 출력값출력
+        print("종료합니다")
+        break
+    elif grade=="1":
+        print("진로탐구")
+        exit=1              #탈출조건
+    elif grade=="2":
+        print("진로목표 설정")
+        exit=1      
+    elif grade=="3":
+        print("진로준비")
+        exit=1
+    elif grade=="4":
+        print("진로도전")
+        exit=1
+
+    else:                  #1234q와 다른것을 입력시 다시입력하게하는부분
+        grade = input("학년을 입력해주세요(1,2,3,4), 종료하려면(q):\n")
+        
+
