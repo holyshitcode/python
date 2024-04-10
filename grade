@@ -1,18 +1,27 @@
-name = input("이름:")
-eng = int(input("영어성적:"))
-math = int(input("수학성적:"))
-total= eng+math; avg=total/2
-if 0<eng<101 and 0<math<101 :
-    if avg>=90: grade="A"
-    elif 70<=avg<90: grade="B"
-    elif 60<avg<70: grade="C"
-    elif avg>=60: grade="D"
-    else : grade="F"
+"""
+이 프로그램은 이름과 성적을 받아 평균을 내고
+학점및 재수강공지를 해줌
+"""
+name = input("이름:")                #이름을 입력받는 부분
+eng = int(input("영어성적:"))        #영어성적을 입력받는 부분
+math = int(input("수학성적:"))       #수학성적을 입력받는 부분
+total= eng+math; avg=total/2         #성적총합과 평균을 구하는부분
+if 0<eng<101 and 0<math<101 :        #0~100까지의 숫자만을받게  구별해내는 부분
+    if avg>=90:                         
+        grade="A"                       #평균치로 학점을 구별해내는 부분
+    if 70<=avg<90:
+        grade="B"
+    if 60<avg<70:
+         grade="C"
+    if avg<=60:
+        grade="D"
+    if avg<30:
+        grade="F"                       
     print(name,"\t평균",avg,"학점",grade)
 
-    if avg>=90:
+    if avg>=90:            #이구간에서 재수강및 성적우수를 구별함
         print("성적우수")
-    elif avg<=60:
+    if avg<=60:
         print("재수강")
 else:
-    print("잘못된 점수입력입니다")
+    print("잘못된 점수입력입니다") #잘못된숫자입력
