@@ -1,0 +1,10 @@
+"""
+이 프로그램은 구구단을 가로로 출력하는것입니다
+"""
+for dan in range (2,10):
+    print("**%d**"%dan,end=" \t") #첫번째줄에 몇단인지 표기하는줄
+print()    
+for i in range(1,10):          #몇을 곱할지 정하는부분
+    for j in range(2,10):      #단을 가로로 뽑아내기위해 존재하는부분
+        print("%d*%d=%d"%(j,i,j*i),end="\t") #end를 써서 옆으로붙여주는부분
+    print() 
