@@ -1,0 +1,21 @@
+"""
+이 프로그램은 전역변수를 사용하지않고 성적,평균,등급을 측정해줍니다
+"""
+def showInfo(): #이름 성적을 받아 평균 등급을 산출해주는함수
+     name=input("이름:");eng=int(input("영어성적:"));math=int(input("수학성적:")) #정보를 입력받는부분
+     avg=(eng+math)/2 #평균을 구하는 부분
+     if avg>=90: grade=('A')    #등급산출을 하는부분
+     elif avg>=80: grade=('B')
+     elif avg>=70: grade=('C')
+     elif avg>=60: grade=('D')
+     else: grade=('F')
+     printInfo(name,eng,math,eng+math,avg,grade) #출력을해주기위해 다른함수호출
+     
+def printInfo(name,eng,math,total,avg,grade): #받은 성적을 출력해주는 함수
+    print("="*53)
+    print("이름\t\t영어\t수학\t총점\t평균\t학점")
+    print("="*53)
+    print("%s\t\t%3d\t%3d\t%3d\t%.2f\t%2c"%(name,eng,math,total,avg,grade)) #이름,성적,총계,평균,등급을 출력
+    print("="*53)
+
+showInfo()
