@@ -9,7 +9,7 @@ mathtopname=engtopname=mathminname=engminname=0
 def readData() :
     global name, eng, math
     name=input("이름: ") ; eng=int(input("영어 성적: ")) ; math=int(input("수학 성적: "))
-
+    
 def getAvg(eng, math, n) :
     return((eng+math) / n)
 
@@ -38,12 +38,15 @@ def processOne() :
     printTitle()
     printRecord(name, eng, math, avg, grade)
 
+
 print("\n프로그램 시작")
 
 
 # 첫 번째 학생 성적 처리
 print("첫번째 학생 성적 처리"  )
-processOne() ; topAvg = avg ;  topName = name; wait=avg ; eng=engtop ; math= mathtop ;wait2=math ;wait3=eng
+processOne() ; topAvg = avg ;  topName = name; wait=avg ; mathtop=math; engtop=eng
+wait2=math
+wait3=eng
 data=0
 #임의의 숫자의 학생의 성적을 받아냄
 while True:
@@ -56,21 +59,15 @@ while True:
             topAvg = avg ; topName = name 
         elif avg<wait:
             minimum=avg ;minimumname=name
-            
-        if engtop<eng:
-            engtop=eng ; engtopname= name
-        elif mathtop<math:
-            mathtop=math; mathtopname =name
-        elif math<wait2:
-            mathmin=math ; mathminname=name
-        elif eng<wait3:
-            engmin=eng ; engminname=name
+        maxmath=max(mathtop,math)
         
-    
+        if math<mathtop
+        =min(wait2,math)
         
+print(mathmin,mathminname)
+print(mathtop,mathtopname)
 print("\n최고 평균 : %6.2f(%s)" % (topAvg,topName))
 print("\n최저 평균 : %6.2f(%s)" % (minimum,minimumname))
-print("\n영어 최고점수: %d(%s)" % (engtop,engtopname))
-print("\n영어 최저점수: %d(%s)" % (engmin,engminname))
+
 
 print("\n프로그램 종료")
