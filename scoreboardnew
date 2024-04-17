@@ -2,8 +2,10 @@
 이프로그램은 최저성적과 최고성적을 산출해내는 프로그램입니다
 
 """
-name=eng=math=topAvg=topName=n=None
-minimum=wait=minimumname=0    
+engtop=engmin=mathtop=mathmin=0
+name=eng=math=topAvg=topName=n=0
+minimum=wait=wait2=wait3=minimumname=0
+mathtopname=engtopname=mathminname=engminname=0
 def readData() :
     global name, eng, math
     name=input("이름: ") ; eng=int(input("영어 성적: ")) ; math=int(input("수학 성적: "))
@@ -41,7 +43,7 @@ print("\n프로그램 시작")
 
 # 첫 번째 학생 성적 처리
 print("첫번째 학생 성적 처리"  )
-processOne() ; topAvg = avg ;  topName = name; wait=avg
+processOne() ; topAvg = avg ;  topName = name; wait=avg ; eng=engtop ; math= mathtop ;wait2=math ;wait3=eng
 data=0
 #임의의 숫자의 학생의 성적을 받아냄
 while True:
@@ -54,10 +56,21 @@ while True:
             topAvg = avg ; topName = name 
         elif avg<wait:
             minimum=avg ;minimumname=name
-    
+            
+        if engtop<eng:
+            engtop=eng ; engtopname= name
+        elif mathtop<math:
+            mathtop=math; mathtopname =name
+        elif math<wait2:
+            mathmin=math ; mathminname=name
+        elif eng<wait3:
+            engmin=eng ; engminname=name
         
     
         
 print("\n최고 평균 : %6.2f(%s)" % (topAvg,topName))
 print("\n최저 평균 : %6.2f(%s)" % (minimum,minimumname))
+print("\n영어 최고점수: %d(%s)" % (engtop,engtopname))
+print("\n영어 최저점수: %d(%s)" % (engmin,engminname))
+
 print("\n프로그램 종료")
