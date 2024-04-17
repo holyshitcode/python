@@ -2,14 +2,19 @@
 이프로그램은 최저성적과 최고성적을 산출해내는 프로그램입니다
 
 """
-engtop=engmin=mathtop=mathmin=0
-name=eng=math=topAvg=topName=n=0
-minimum=wait=wait2=wait3=minimumname=0
-mathtopname=engtopname=mathminname=engminname=0
+
+
+name=eng=math=topAvg=topName=n=0 #하단부 최고최저치 변수들
+minimum=wait=minimumname=0 
+englist=[]   #영어성적을 받아서저장
+mathlist=[]   #수학성적을 받아서저장
+names=[] #이름을 받아서 저장
 def readData() :
     global name, eng, math
     name=input("이름: ") ; eng=int(input("영어 성적: ")) ; math=int(input("수학 성적: "))
-    
+    englist.append(eng)   #영어성적을 리스트로저장
+    mathlist.append(math) #수학성적을 리스트로저장
+    names.append(name) #이름을 리스트로저장
 def getAvg(eng, math, n) :
     return((eng+math) / n)
 
@@ -38,15 +43,23 @@ def processOne() :
     printTitle()
     printRecord(name, eng, math, avg, grade)
 
-
 print("\n프로그램 시작")
-
+def maxmin(a, names):   #영어 최고,최저 점수를 얻어내고 출력
+    engtop = max(a)
+    engmin = min(a)
+    engtopper = a.index(engtop)
+    print("영어 최고점수는 %d점, 최고점수를 받은 학생은 %s입니다." % (engtop, names[engtopper]))
+    print("영어 최저점수는 %d점, 최저점수를 받은 학생은 %s입니다." % (engmin, names[a.index(engmin)]))
+def maxmins(b, names):  #수학 최고,최저 점수를 얻어내고 출력
+    mathtop = max(b)
+    mathmin = min(b)
+    mathtopper = b.index(mathtop)
+    print("수학 최고점수는 %d점, 최고점수를 받은 학생은 %s입니다." % (mathtop, names[mathtopper]))
+    print("수학 최저점수는 %d점, 최저점수를 받은 학생은 %s입니다." % (mathmin, names[b.index(mathmin)]))
 
 # 첫 번째 학생 성적 처리
 print("첫번째 학생 성적 처리"  )
-processOne() ; topAvg = avg ;  topName = name; wait=avg ; mathtop=math; engtop=eng
-wait2=math
-wait3=eng
+processOne() ; topAvg = avg ;  topName = name; wait=avg ; 
 data=0
 #임의의 숫자의 학생의 성적을 받아냄
 while True:
@@ -55,19 +68,20 @@ while True:
         break
     else:
         processOne()
-        if topAvg < avg :
+        if topAvg < avg : #평균 최고최저와 그학생이름을 구별
             topAvg = avg ; topName = name 
-        elif avg<wait:
+        if avg<wait:
             minimum=avg ;minimumname=name
-        maxmath=max(mathtop,math)
-        
-        if math<mathtop
-        =min(wait2,math)
-        
-print(mathmin,mathminname)
-print(mathtop,mathtopname)
+            
+maxmin(englist,names)
+maxmins(mathlist,names)
+
 print("\n최고 평균 : %6.2f(%s)" % (topAvg,topName))
 print("\n최저 평균 : %6.2f(%s)" % (minimum,minimumname))
+
+
+print("\n프로그램 종료")
+
 
 
 print("\n프로그램 종료")
