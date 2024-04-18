@@ -1,0 +1,8 @@
+def reverse():
+    easy=input("문자열입력")
+    n=len(easy)
+    for i in range (n-1,-1,-1):
+        print(easy[i],end="")
+           
+
+reverse()
