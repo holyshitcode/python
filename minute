@@ -1,0 +1,19 @@
+second=int(input("input second"))
+
+minute=hour=0
+
+if second<60:
+    print("%dsecond"%second)
+elif second>3600:
+    minute=second//60
+    hour=minute//60
+    minuteshow=minute%60
+    
+    second=second%60
+
+    print("%dhour %dminute %dsecond" %(hour,minuteshow,second))
+elif second>60:
+    minute=second/60
+    second=second%60
+    print("%dminute %dsecond"%(minute,second))
+
