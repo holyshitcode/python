@@ -1,0 +1,5 @@
+print(format("MENU",">10"),format("VOTE",">6"),format("(%)",">8"))
+print("-"*26,"\n")
+print(format("JUICE",">10"),format("5",">6"),format("**.*",">8"))
+print(format("COFFEE",">10"),format("7",">6"),format("**.*",">8"))
+print(format("TEA",">10"),format("3",">6"),format("**.*",">8"))
