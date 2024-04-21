@@ -1,0 +1,28 @@
+num1=int(input("숫자입력:"))
+num2=int(input("숫자입력:"))
+num3=int(input("숫자입력:"))
+
+
+if num1>num2 and num1>num3:
+    max_num=num1
+elif num2>num1 and num2>num3:
+    max_num=num2
+else:
+    max_num=num3
+
+if num1<num2 and num1<num3:
+    min_num=num1
+elif num2<num1 and num2<num3:
+    min_num=num2
+else:
+    min_num=num3
+
+
+if num1!=max_num and num1!=min_num:
+    middle_num=num1
+elif num2!=max_num and num2!=min_num:
+    middle_num=num2
+else:
+    middle_num=num3
+
+print("가장큰수:%d\t 중간수:%d\t 가장작은수:%d\t" %(max_num,middle_num,min_num))
