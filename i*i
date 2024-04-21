@@ -1,6 +1,6 @@
 # i*i의합에서 1천이 넘을때 멈추고 합을제시
 sum=0
-for i in range(0,1000):
+for i in range(0,1001):
     sum+=(i*i)
     if sum>1000:
         print(sum)
