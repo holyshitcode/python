@@ -1,10 +1,13 @@
+MSG_FORMAT = "{}번 원반을 {}에서 {}로 이동"
 #n=숫자 a=출발점 c=도착점 b=경유점
+def move(n, a, c):
+    print(MSG_FORMAT.format(n, a, c))
 def hanoi(n, a, c, b):
     if n == 1:
-        print(a, c) #a>c로 옮겨라
+        move(1, a, c) #a>c로 옮겨라
     else:
         hanoi(n - 1, a, b, c) #2개의 원판을 a>b로 c를통해서 옮겨라
-        print(a, c)
+        move(n, a, c)
         hanoi(n - 1, b, c, a) #1개의 원판을 b>c 로 a를통해서 옮겨라
 
 
