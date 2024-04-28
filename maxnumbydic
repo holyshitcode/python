@@ -1,0 +1,15 @@
+from collections import defaultdict
+"""
+this program will get integer for three and find the maximum number
+and then print it
+"""
+nums=defaultdict(list)
+
+"""
+get numbers and show the present lists for numbers for 3 times.
+"""
+for i in range(3):
+    nums['max_num'].append(int(input("number:")))   
+    print(f"numbers got for:{nums.values()}")
+
+print(max(nums['max_num']))   #show the maximum number
