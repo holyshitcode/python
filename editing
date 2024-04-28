@@ -1,0 +1,12 @@
+from collections import defaultdict
+
+stu=defaultdict(list)
+flag=0
+while flag!="d" or "D":
+    name=input("put your name for login:") 
+    stu['name'].append(name)
+    print(f"if you done press 'D'key")
+    print(f"press 'enter' key for input other names")
+    flag=input()
+
+print(stu['name'].values())
