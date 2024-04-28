@@ -1,33 +1,33 @@
 from collections import defaultdict
-ind_scores=[]
-ind_avgs=[]
-stu=defaultdict(list)
-flag=0
+ind_scores=[]  #space for total score
+ind_avgs=[] #space for total avg
+stu=defaultdict(list) #space for student's name and score
+flag=0 # the escape condition
 while True:
-    if flag=='d':
+    if flag=='d':   #the escape condition
         break
     else:
         name=input("put your name for login:")
         testnum=int(input("how many test did you do?(under 3):"))
         for i in range(testnum):
-            if testnum>3:
+            if testnum>3:   #if the number of lessons got over 3 break
                 print("input error return")
                 break
-            elif testnum<4:
+            elif testnum<4:     #if the user input correct range. the program will get informations.
                 score=int(input("input your score:")) 
                 stu[name].append(score)
-        scores=stu[name]        
+        scores=stu[name]           #putout scores that recorded in stu dictionary
         total=sum(scores)
-        ind_scores.append(total)
+        ind_scores.append(total)   #record in totalscore
         avg= total/testnum
-        ind_avgs.append(avg)
+        ind_avgs.append(avg)    #record in totalavg
         print(f"{name}'s average={avg}")        
         flag=input("if you want to stop press 'd':")
 totalscore=sum(ind_scores)
 totalavg=sum(ind_avgs)/len(ind_avgs)
 print(f"total sum={totalscore}, total avg={totalavg}")
 print("Thank you, good bye")
-print(stu.items())
+print(stu.items())  #show the information that program have now.
 
 
 
