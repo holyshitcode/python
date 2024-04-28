@@ -1,0 +1,11 @@
+stu={}
+
+stu['name']='james'
+stu['age']=20
+stu['avg']=50.0
+
+names=list(stu.keys())
+ages=list(stu.values())
+print(names)
+print(ages)
+print(f"nama={stu['name']} age={stu['age']} avg={stu['avg']}")
