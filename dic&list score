@@ -1,0 +1,33 @@
+from collections import defaultdict
+ind_scores=[]
+ind_avgs=[]
+stu=defaultdict(list)
+flag=0
+while True:
+    if flag=='d':
+        break
+    else:
+        name=input("put your name for login:")
+        testnum=int(input("how many test did you do?(under 3):"))
+        for i in range(testnum):
+            if testnum>3:
+                print("input error return")
+                break
+            elif testnum<4:
+                score=int(input("input your score:")) 
+                stu[name].append(score)
+        scores=stu[name]        
+        total=sum(scores)
+        ind_scores.append(total)
+        avg= total/testnum
+        ind_avgs.append(avg)
+        print(f"{name}'s average={avg}")        
+        flag=input("if you want to stop press 'd':")
+totalscore=sum(ind_scores)
+totalavg=sum(ind_avgs)/len(ind_avgs)
+print(f"total sum={totalscore}, total avg={totalavg}")
+print("Thank you, good bye")
+print(stu.items())
+
+
+
