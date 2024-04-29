@@ -1,0 +1,36 @@
+class person:
+    def __init__(self,amount,usd,gbp,jpy):
+        self.amount=amount
+        self.usd=usd
+        self.gbp=gbp
+        self.jpy=jpy
+        self.moneylist={}
+
+    def usdic(self):
+        print(f"총자산은 {self.amount}원 입니다")
+        result1=self.amount/self.usd
+        print(f"달러 환전액은 {result1:.2f}달러 입니다.")
+        self.moneylist['dollar']=result1
+
+    def gbpic(self):
+        print(f"총자산은 {self.amount}원 입니다")
+        result2=self.amount/self.gbp
+        print(f"달러 환전액은 {result2:.2f}파운드 입니다.")
+        self.moneylist['pound']=result2
+
+    def jpyic(self):
+        print(f"총자산은 {self.amount}원 입니다")
+        result3=self.amount/self.jpy
+        print(f"달러 환전액은 {result3:.2f}엔 입니다.")   
+        self.moneylist['yen']=result3
+
+print(f"모든 환율은 숫자로만 입력해주세요")
+input("숙지하셨으면 'enter'키를 입력해주세요")
+
+junyeong= person(float(input("보유자산을 입력해주세요:")),float(input("달러환율을 입력해주세요:"))
+,float(input("파운드환율을 입력해주세요:")),float(input("엔화환율을 입력해주세요:")))        
+
+junyeong.usdic()
+junyeong.gbpic()
+junyeong.jpyic()
+print(junyeong.moneylist)
