@@ -1,0 +1,27 @@
+class student:
+    def __init__(self,name,math,eng):
+        self.name = name
+        self.math = math
+        self.eng = eng
+        self.avg = (math+eng)/2
+
+    def score(self):
+        print(f"{self.name}'s math score is {self.math} and english score is {self.eng}and the average is {self.avg}")
+    
+    def information(self):
+        print(f"name={self.name},math={self.math},english={self.eng},average={self.avg}")
+
+    def makelist(self):
+        self.scorelist=self.math,self.eng
+
+
+user_1=student("james",90,80)
+stulist=list()
+num=0
+num=int(input("how many people do you want?:"))
+for i in range(num):
+    print(f"you are now entering '{i+1}' student")
+    stu_i=student(input("name:"),int(input("math:")),int(input("englisth:")))
+    stu_i.makelist()
+    stu_i.score()
+    print(stu_i.scorelist)
