@@ -2,7 +2,7 @@ from collections import defaultdict
 ind_scores=[]  #space for total score
 ind_avgs=[] #space for total avg
 stu=defaultdict(list) #space for student's name and score
-flag=0 # the escape condition
+flag=None # the escape condition
 while True:
     if flag=='d':   #the escape condition
         break
