@@ -1,0 +1,32 @@
+class student:
+    def __init__(self,name,math,eng):
+        self.name = name
+        self.math = math
+        self.eng = eng
+        self.avg = (math+eng)/2
+
+    def score(self):
+        print(f"{self.name}'s math score is {self.math} and english score is {self.eng}and the average is {self.avg}")
+    
+    def information(self):
+        print(f"name={self.name},math={self.math},english={self.eng},average={self.avg}")
+
+    def makelist(self):
+        self.scorelist=self.math,self.eng
+
+
+flag=''
+stulist=[]
+
+while flag!='q':
+    name=input("enter student's name:")
+    stulist.append(name)
+    flag=input("if you want to calculate press 'q'")
+    
+print(f"now gathering for {len(stulist)} people.")
+
+for i in stulist:
+    count=0
+    print(f"you are now entering {i} student's information")
+    i=student(stulist[count],int(input("math:")),int(input("englisth:")))
+    count+=1
