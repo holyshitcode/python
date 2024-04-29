@@ -1,0 +1,14 @@
+import pandas as pd
+path=r"C:\Users\spuma\OneDrive\바탕 화면\파낟스\new.xlsx"
+df = pd.read_excel(path)
+
+stu={'james':[50,40,30,20],'jun':[40,30,20,10],'mine':[30,20,10,0]}
+new=pd.DataFrame(stu)
+print(new)
+combine = pd.merge(df, new, left_index=True, right_index=True)
+combinepath=r"C:\Users\spuma\OneDrive\바탕 화면\파낟스\combined.xlsx"
+combine.to_excel(combinepath, index=False)
+
+combineread=pd.read_excel(combinepath)
+
+print(combineread)
