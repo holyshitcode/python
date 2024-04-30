@@ -1,0 +1,138 @@
+import tkinter as tk
+from tkinter import messagebox
+
+class PokerGameApp:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("포커게임")
+
+        self.label = tk.Label(master, text="포커게임에 오신걸 환영합니다!")
+        self.label.pack()
+
+        self.play_button = tk.Button(master, text="Play", command=self.play_game)
+        self.play_button.pack()
+
+    def play_game(self):
+        import random
+        class card:
+            def __init__(self):
+                self.mark = ['Spade', 'Club', 'Diamond', 'Heart']
+                self.cardnum = ['2', '3', '4', '5', '6', '7', '8',
+                                '9', '10', '11', '12', '13', '14']
+                self.deck = []
+                self.makedeck()
+                self.shuffle()
+                self.hand = []
+
+            def makedeck(self):
+                for i in self.mark:
+                    for j in self.cardnum:
+                        self.deck.append([i, j])
+
+            def shuffle(self):
+                random.shuffle(self.deck)
+
+            def dealing(self):
+                for i in range(4):
+                    self.hand = [self.deck.pop() for i in range(4)]
+
+        class user(card):
+            def __init__(self):
+                super().__init__()
+                super().dealing()
+                self.name = input("플레이어 이름입력:")
+                self.showcard()
+
+            def restart(self):
+                self.hand.clear()
+
+            def showcard(self):
+                print(f"{self.name}의카드는{self.hand}")
+
+        def determine(user):
+            combi = {'four of a kind': 1, 'full house': 2, 'flush': 3, 'straight': 4,
+                     'three of a kind': 5, 'two pair': 6, 'one pair': 7, 'high card': 8}
+
+            counting = {}
+
+            for item in user:
+                key = item[0]
+                value = item[1]
+                if key in counting:
+                    counting[key].append(value)
+                else:
+                    counting[key] = [value]
+
+            for _, num in user:
+                if num in counting:
+                    counting[num] += 1
+                else:
+                    counting[num] = 1
+
+            if user[0][1] == user[1][1] == user[2][1] == user[3][1]:
+                return 'four of a kind'
+            elif user[0][0] == user[1][0] == user[2][0] == user[3][0] and straight(user):
+                return 'straight flush'
+            elif user[0][0] == user[1][0] == user[2][0] == user[3][0]:
+                return 'flush'
+            elif straight(user):
+                return 'straight'
+            elif 3 in counting.values():
+                return 'three of a kind'
+            elif list(counting.values()).count(2) == 2:
+                return "two pair"
+            elif 2 in counting.values():
+                return "one pair"
+            else:
+                return "high card"
+
+        def straight(hand):
+            hande = []
+            for i in range(0, 4):
+                number = hand[i][1]
+                hande.append(int(number))
+            hande.sort()
+            if hande[0] + 1 == hande[1] and hande[1] + 1 == hande[2] and hande[2] + 1 == hande[3] and len(
+                    set(hande)) == 4:
+                return True
+            else:
+                return False
+
+        def compare(number):
+            combi = {'four of a kind': 1, 'full house': 2, 'flush': 3, 'straight': 4,
+                     'three of a kind': 5, 'two pair': 6, 'one pair': 7, 'high card': 8}
+            return combi[number]
+
+        make = card()
+        user1 = user()
+        user2 = user()
+
+        if compare(determine(user1.hand)) == compare(determine(user2.hand)):
+            total1 = 0;
+            total2 = 0
+            for suit, value in user1.hand:
+                if value.isdigit():
+                    total1 += int(value)
+            for suit, value in user2.hand:
+                if value.isdigit():
+                    total2 += int(value)
+            if total1 > total2:
+                messagebox.showinfo("Game Result", "Player 1 wins!")
+            else:
+                messagebox.showinfo("Game Result", "Player 2 wins!")
+        elif compare(determine(user1.hand)) < compare(determine(user2.hand)):
+            messagebox.showinfo("Game Result", "Player 1 wins!")
+        else:
+            messagebox.showinfo("Game Result", "Player 2 wins!")
+
+        print(f"1번 유저의패:{determine(user1.hand)}")
+        print(f"2번 유저의패:{determine(user2.hand)}")
+
+
+def main():
+    root = tk.Tk()
+    app = PokerGameApp(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
