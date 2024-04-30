@@ -24,21 +24,21 @@ class user(card):
     def __init__(self):
         super().__init__()
         super().dealing()
-        self.name=input("플레이어 이름입력:")
+        #self.name=input("플레이어 이름입력:")
         self.showcard()
 
     def restart(self):
         self.hand.clear()
 
     def showcard(self):
-
-        print(f"{self.name}의카드는{self.hand}")
+        print(f"의카드는{self.hand}")
+        #print(f"{self.name}의카드는{self.hand}")
 
 def determine(user):
     combi={'four of a kind':1,'full house':2,'flush':3,'straight':4,
                  'three of a kind':5,'two pair':6,'one pair':7,'high card':8}
 
-    counting = {}
+    counting={}
 
     for item in user:
         key = item[0]
@@ -54,11 +54,9 @@ def determine(user):
         else:
             counting[num] = 1
 
-    if 4 in counting.values():
+    if user[0][1]==user[1][1]== user[2][1] ==user[3][1]:
         return 'four of a kind'
-    elif 3 in counting.values() and 2 in counting.values():
-        return 'full House'
-    elif len(counting.keys())==1:
+    elif user[0][0] == user[1][0] == user[2][0] ==user[3][0]:
         return 'flush'
     #elif is_straight(counting):
         return 'straight'
@@ -78,6 +76,7 @@ def compare(number):
     combi = {'four of a kind': 1, 'full house': 2, 'flush': 3, 'straight': 4,
              'three of a kind': 5, 'two pair': 6, 'one pair': 7, 'high card': 8}
     return combi[number]
+
 
 make=card()
 user1=user()
