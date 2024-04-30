@@ -55,6 +55,8 @@ def determine(user):
 
     if user[0][1]==user[1][1]== user[2][1] ==user[3][1]:
         return 'four of a kind'
+    elif user[0][0] == user[1][0] == user[2][0] ==user[3][0] and straight(user):
+        return 'straight flush'
     elif user[0][0] == user[1][0] == user[2][0] ==user[3][0]:
         return 'flush'
     elif straight(user):
