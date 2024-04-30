@@ -1,0 +1,41 @@
+import random
+class card:
+    def __init__(self):
+        self.mark=['Spade','Club','Diamond','Heart']
+        self.cardnum=['2','3','4','5','6','7','8',
+                      '9','10','jack','king','queen','ace']
+        self.deck=[]
+        self.makedeck()
+        self.shuffle()
+        self.hand=[]
+    def makedeck(self):
+        for i in self.mark:
+            for j in self.cardnum:
+                self.deck.append([i,j])
+
+    def shuffle(self):
+        random.shuffle(self.deck)
+
+    def dealing(self):
+        for i in range(4):
+            self.hand = [self.deck.pop() for i in range(4)]
+
+class user(card):
+    def __init__(self):
+        super().__init__()
+        super().dealing()
+        self.name=input("플레이어 이름입력:")
+        self.showcard()
+
+    def restart(self):
+        self.hand.clear()
+
+    def showcard(self):
+
+        print(f"{self.name}의카드는{self.hand}")
+
+
+
+make=card()
+user1=user()
+user2=user()
