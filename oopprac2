@@ -8,13 +8,15 @@ class student:
         self.score.append(self.math)
         self.score.append(self.eng)
         self.avg=sum(self.score)/2
-
+        self.showinfo()
     def showinfo(self):
         print(f"이름은:{self.name} 나이는:{self.age} "
               f"수학점수는:{self.math} 영어점수는:{self.eng}" )
         print(f"과목평균은:{self.avg} 입니다.")
 
+name=[]
+count=input("영어 이름을 입력해주세요:")
+name.append(count)
 
-who=student()
-who.showinfo()
-print(who.avg,who.score)
+for i in name:
+    name=student()
