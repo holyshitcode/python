@@ -24,15 +24,14 @@ class user(card):
     def __init__(self):
         super().__init__()
         super().dealing()
-        #self.name=input("플레이어 이름입력:")
+        self.name=input("플레이어 이름입력:")
         self.showcard()
 
     def restart(self):
         self.hand.clear()
 
     def showcard(self):
-        print(f"의카드는{self.hand}")
-        #print(f"{self.name}의카드는{self.hand}")
+        print(f"{self.name}의카드는{self.hand}")
 
 def determine(user):
     combi={'four of a kind':1,'full house':2,'flush':3,'straight':4,
@@ -58,7 +57,7 @@ def determine(user):
         return 'four of a kind'
     elif user[0][0] == user[1][0] == user[2][0] ==user[3][0]:
         return 'flush'
-    #elif is_straight(counting):
+    elif straight(user):
         return 'straight'
     elif 3 in counting.values():
         return 'three of a kind'
@@ -68,10 +67,16 @@ def determine(user):
         return "one pair"
     else:
         return "high card"
-def is_straight(hand):
-    nums = sorted([int(card[1]) for card in hand])
-    return nums[0] + 1 == nums[1] and nums[1] + 1 == nums[2] and nums[2] + 1 == nums[3]
-
+def straight(hand):
+    hande = []
+    for i in range(0, 4):
+        number = hand[i][1]
+        hande.append(int(number))
+    hande.sort()
+    if hande[0]+1==hande[1] and hande[1]+1==hande[2] and hande[2]+1==hande[3] and len(set(hande))==4:
+        return True
+    else:
+        return False
 def compare(number):
     combi = {'four of a kind': 1, 'full house': 2, 'flush': 3, 'straight': 4,
              'three of a kind': 5, 'two pair': 6, 'one pair': 7, 'high card': 8}
@@ -81,6 +86,7 @@ def compare(number):
 make=card()
 user1=user()
 user2=user()
+
 
 if compare(determine(user1.hand))==compare(determine(user2.hand)):
     total1=0; total2=0
