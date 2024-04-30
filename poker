@@ -3,7 +3,7 @@ class card:
     def __init__(self):
         self.mark=['Spade','Club','Diamond','Heart']
         self.cardnum=['2','3','4','5','6','7','8',
-                      '9','10','jack','king','queen','ace']
+                      '9','10','11','12','13','14']
         self.deck=[]
         self.makedeck()
         self.shuffle()
@@ -34,8 +34,71 @@ class user(card):
 
         print(f"{self.name}의카드는{self.hand}")
 
+def determine(user):
+    combi={'four of a kind':1,'full house':2,'flush':3,'straight':4,
+                 'three of a kind':5,'two pair':6,'one pair':7,'high card':8}
 
+    counting = {}
+
+    for item in user:
+        key = item[0]
+        value = item[1]
+        if key in counting:
+            counting[key].append(value)
+        else:
+            counting[key] = [value]
+
+    for _, num in user:
+        if num in counting:
+            counting[num] += 1
+        else:
+            counting[num] = 1
+
+    if 4 in counting.values():
+        return 'four of a kind'
+    elif 3 in counting.values() and 2 in counting.values():
+        return 'full House'
+    elif len(counting.keys())==1:
+        return 'flush'
+    #elif is_straight(counting):
+        return 'straight'
+    elif 3 in counting.values():
+        return 'three of a kind'
+    elif list(counting.values()).count(2) == 2:
+        return "two pair"
+    elif 2 in counting.values():
+        return "one pair"
+    else:
+        return "high card"
+def is_straight(hand):
+    nums = sorted([int(card[1]) for card in hand])
+    return nums[0] + 1 == nums[1] and nums[1] + 1 == nums[2] and nums[2] + 1 == nums[3]
+
+def compare(number):
+    combi = {'four of a kind': 1, 'full house': 2, 'flush': 3, 'straight': 4,
+             'three of a kind': 5, 'two pair': 6, 'one pair': 7, 'high card': 8}
+    return combi[number]
 
 make=card()
 user1=user()
 user2=user()
+
+if compare(determine(user1.hand))==compare(determine(user2.hand)):
+    total1=0; total2=0
+    for suit, value in user1.hand:
+        if value.isdigit():
+            total1 += int(value)
+    for suit, value in user2.hand:
+        if value.isdigit():
+            total2 += int(value)
+    if total1>total2:
+        print("1번유저의 승리")
+    else:
+        print("2번유저의 승리")
+elif compare(determine(user1.hand))< compare(determine(user2.hand)):
+    print("1번유저의 승리")
+else:
+    print("2번유저의 승리")
+
+print(f"1번 유저의패:{determine(user1.hand)}")
+print(f"2번 유저의패:{determine(user2.hand)}")
