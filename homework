@@ -1,0 +1,55 @@
+print("202411340 김준영")
+name,eng,math, total, avg,grade=[], [], [], [], [], []
+def getGrade(score) :
+    if score>=90 :  return('A')
+    elif score>=80 :  return('B')
+    elif score>=70 :  return('C')
+    elif score>=60 :  return('D')
+    else :  return('F')
+def printTitle():
+    for i in range(0,n) :
+        printRecord(name[i],eng[i],math[i],avg[i],grade[i])
+        
+def makeavg(lesson):
+    result=sum(lesson)/len(lesson)
+    return result
+
+def findsecond():
+    maxtotal=max(total)
+    #name.remove(total.index(maxtotal))
+    total.remove(maxtotal)
+    
+    secondtotal=max(total)
+    secondname=name[total.index(secondtotal)]
+    total.append(maxtotal)
+    return secondtotal
+    
+n=int(input("학생수입력: "))
+
+#n명학생이름,영어,수학성적입력및리스트name,eng,math구성
+for i in range(0,n) :
+    print("\n%d번째학생자료입력"%i)
+    name.append(input("이름: "))
+    eng.append(int(input("영어성적: ")))
+    math.append(int(input("수학성적: ")))
+    
+ #총점,평균,학점계산및total,avg,grade리스트구성
+for i in range(0,n) :
+    total.append(eng[i]+math[i])
+    avg.append(total[i] /2)
+    grade.append(getGrade(avg[i]))
+
+engavg=makeavg(eng)
+mathavg=makeavg(math)
+holeavg=(engavg+mathavg)/2
+print(f"영어평균은 {engavg:.2f} 수학평균은 {mathavg:.2f} 전체평균은 {holeavg:.2f} ")
+
+secondtotal=findsecond()
+total.sort()
+secondname= name[total.index(secondtotal)+1]
+print(f"두번째 최고득점자는 {secondname} 두번째 최고총점은 {secondtotal}")
+
+for i in range(n):
+    if math[i]>=mathavg:
+        print("수학평균이상득점자::",end="")
+        print(name[i],end="\t")
