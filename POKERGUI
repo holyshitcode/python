@@ -43,6 +43,9 @@ class user(card):
     def showcard(self):
         print(f"{self.name}의 카드는{self.hand}")
 
+
+
+
 def cardmake(): #2번째실행
     make=card()
     print("카드덱 생성완료!")
@@ -51,17 +54,19 @@ def cardmake(): #2번째실행
 def gstart():  #1번째실행
     start.withdraw()
     started.deiconify()
+
 def usermake(): #3번째실행
     global user1
     name="유저(1)"
     user1=user(name)
     #entry.delete(0, END)
+    shoot()
 def usermake2():
     global user2
-    name = "유저(1)"
+    name = "유저(2)"
     user2 = user(name)
     #entry.delete(0, END)
-
+    shoot1()
 
 
 def endshow():
@@ -131,12 +136,16 @@ def final():
                 total2 += int(value)
         if total1>total2:
             print("1번유저의 승리")
+            canvas.create_image(150, 50, anchor=NW, image=win, tags="winner")
         else:
             print("2번유저의 승리")
+            canvas.create_image(150, 250, anchor=NW, image=win, tags="winner")
     elif compare(determine(user1.hand))< compare(determine(user2.hand)):
         print("1번유저의 승리")
+        canvas.create_image(150, 50, anchor=NW, image=win, tags="winner")
     else:
         print("2번유저의 승리")
+        canvas.create_image(150, 250, anchor=NW, image=win, tags="winner")
 def finalshow():
     ubtn.pack_forget()
     ubtn2.pack_forget()
@@ -186,6 +195,11 @@ def startre():
 
 def clear_text():
     user_text.delete('1.0',END)
+    user1.restart()
+    user2.restart()
+    canvas.delete("winner")
+    canvas.delete("cards")
+
 
 
 
@@ -210,16 +224,75 @@ started.withdraw()
 
 canvas=Canvas(started, width=1500,height=1000)
 canvas.pack()
-#play_image = PhotoImage(file=r"C:\Users\spuma\PycharmProjects\pythonProject\pokerplay.gif")
-#.create_image(100,200,  image=play_image)
-# 이미지 로드
 image = Image.open(r"C:\Users\spuma\PycharmProjects\pythonProject\pokerplay.gif")
 
-# 이미지 크기 조정 (Canvas의 크기에 맞게)
 
-# 이미지를 Tkinter에서 사용 가능한 형태로 변환
 play_image = ImageTk.PhotoImage(image)
-canvas.create_image(0,0,anchor=NW, image=play_image)
+canvas.create_image(0,0,anchor=NW, image=play_image,tags="background")
+
+
+
+#카드 이미지로드
+#클로버
+c2=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c2.gif")
+c3=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c3.gif")
+c4=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c4.gif")
+c5=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c5.gif")
+c6=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c6.gif")
+c7=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c7.gif")
+c8=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c8.gif")
+c9=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c9.gif")
+c10=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c10.gif")
+c11=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c11.gif")
+c12=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c12.gif")
+c13=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c13.gif")
+c14=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\c14.gif")
+#스페이드
+s2=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s2.gif")
+s3=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s3.gif")
+s4=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s4.gif")
+s5=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s5.gif")
+s6=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s6.gif")
+s7=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s7.gif")
+s8=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s8.gif")
+s9=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s9.gif")
+s10=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s10.gif")
+s11=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s11.gif")
+s12=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s12.gif")
+s13=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s13.gif")
+s14=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\s14.gif")
+#하트
+h2=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h2.gif")
+h3=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h3.gif")
+h4=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h4.gif")
+h5=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h5.gif")
+h6=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h6.gif")
+h7=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h7.gif")
+h8=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h8.gif")
+h9=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h9.gif")
+h10=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h10.gif")
+h11=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h11.gif")
+h12=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h12.gif")
+h13=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h13.gif")
+h14=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\h14.gif")
+#다이아몬드
+d2=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d2.gif")
+d3=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d3.gif")
+d4=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d4.gif")
+d5=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d5.gif")
+d6=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d6.gif")
+d7=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d7.gif")
+d8=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d8.gif")
+d9=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d9.gif")
+d10=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d10.gif")
+d11=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d11.gif")
+d12=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d12.gif")
+d13=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d13.gif")
+d14=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d14.gif")
+###################
+win=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\win.gif")
+def winning():
+    pass
 
 btn=Button(start)
 btn.config(width=10,height=15)
@@ -245,48 +318,60 @@ entry.pack()
 ubtn=Button(started)
 ubtn.config(width=15,height=1)
 ubtn.config(text="유저(1) 카드뽑기")
+ubtn.config(font=("Helvetica", 14, "bold"))
+ubtn.config(bg="brown")
 ubtn.config(command=usermake)
 ubtn.pack()
-ubtn_window=canvas.create_window(300,180,anchor=NW, window=ubtn)
+ubtn_window=canvas.create_window(0,450,anchor=NW, window=ubtn)
 
 ubtn2=Button(started)
 ubtn2.config(width=15,height=1)
 ubtn2.config(text="유저(2) 카드뽑기")
+ubtn2.config(font=("Helvetica", 14, "bold"))
+ubtn2.config(bg="brown")
 ubtn2.config(command=usermake2)
 ubtn2.pack()
-ubtn2_window=canvas.create_window(490,180,anchor=NW, window=ubtn2)
+ubtn2_window=canvas.create_window(190,450,anchor=NW, window=ubtn2)
 
 fight=Button(started)
 fight.config(width=15,height=1)
 fight.config(text="승패 보기")
+fight.config(font=("Helvetica", 14, "bold"))
+fight.config(bg="silver")
 fight.config(command=finalshow)
 fight.pack()
-fight_window=canvas.create_window(745,320,anchor=NW, window=fight)
+fight_window=canvas.create_window(745,420,anchor=NW, window=fight)
 
 tryagain=Button(started)
 tryagain.config(width=15,height=1)
 tryagain.config(text="게임종료")
+tryagain.config(font=("Helvetica", 14, "bold"))
+tryagain.config(bg="red")
 tryagain.config(command=endgame)
 tryagain.pack()
 tryagain_window=canvas.create_window(833,0,anchor=NW, window=tryagain)
 
 restart_button=Button(started)
 restart_button.config(width=15,height=1)
-restart_button.config(text="지우기")
+restart_button.config(text="Deck Shuffle")
+restart_button.config(font=("Helvetica", 14, "bold"))
+restart_button.config(bg="silver")
 restart_button.config(command=clear_text)
 restart_button.pack()
-restart_window=canvas.create_window(745,220,anchor=NW, window=restart_button)
+restart_window=canvas.create_window(745,320,anchor=NW, window=restart_button)
 
 restart1_button=Button(started)
 restart1_button.config(width=15,height=1)
 restart1_button.config(text="재시작")
+restart1_button.config(font=("Helvetica", 14, "bold"))
+restart1_button.config(bg="yellow")
 restart1_button.config(command=startre)
 restart1_button.pack()
-restart1_window=canvas.create_window(800,480,anchor=NW, window=restart1_button)
+restart1_window=canvas.create_window(653,0,anchor=NW, window=restart1_button)
 
-user_text=Text(started,width=40, height=13)
+user_text=Text(started,width=35, height=10)
 user_text.pack()
-user_text_window=canvas.create_window(300,220,anchor=NW, window=user_text)
+user_text_window=canvas.create_window(580,50,anchor=NW, window=user_text)
 
 print_text(user_text)
 """
@@ -297,7 +382,105 @@ result.config(command=endshow)
 result.pack()
 """
 
+card_images ={
+    'Spade' : {
+        '2': s2,
+        '3': s3,
+        '4': s4,
+        '5': s5,
+        '6': s6,
+        '7': s7,
+        '8': s8,
+        '9': s9,
+        '10': s10,
+        '11': s11,
+        '12': s12,
+        '13': s13,
+        '14': s14
+    },
+    'Club' : {
+        '2': c2,
+        '3': c3,
+        '4': c4,
+        '5': c5,
+        '6': c6,
+        '7': c7,
+        '8': c8,
+        '9': c9,
+        '10': c10,
+        '11': c11,
+        '12': c12,
+        '13': c13,
+        '14': c14
+    },
+    'Heart' : {
+        '2': s2,
+        '3': s3,
+        '4': s4,
+        '5': s5,
+        '6': s6,
+        '7': s7,
+        '8': s8,
+        '9': s9,
+        '10': s10,
+        '11': s11,
+        '12': s12,
+        '13': s13,
+        '14': s14
+    },
+    'Diamond' : {
+        '2': s2,
+        '3': s3,
+        '4': s4,
+        '5': s5,
+        '6': s6,
+        '7': s7,
+        '8': s8,
+        '9': s9,
+        '10': s10,
+        '11': s11,
+        '12': s12,
+        '13': s13,
+        '14': s14
 
+    }
+}
+def shoot():
+    global card_images
+    global user1
+
+    for i, card_info in enumerate(user1.hand):
+        suit, number = card_info
+        x = 100 + i * 100
+        y = 100
+        image_path = "C:/Users/spuma/OneDrive/바탕 화면/포커카드/{}{}.gif".format(suit[0].lower(), number)
+        image = Image.open(image_path)
+        card_image = ImageTk.PhotoImage(image)
+        card_images[(suit, number)] = card_image
+        image_item = canvas.create_image(x, y, anchor="center", image=card_image,tags="cards")
+        canvas.tag_raise(image_item)
+def shoot1():
+    global card_images
+    global user2
+
+    for i, card_info in enumerate(user2.hand):
+        suit, number = card_info
+        x = 100 + i * 100
+        y = 300
+        image_path = "C:/Users/spuma/OneDrive/바탕 화면/포커카드/{}{}.gif".format(suit[0].lower(), number)
+        image = Image.open(image_path)
+        card_image = ImageTk.PhotoImage(image)
+        card_images[(suit, number)] = card_image
+        image_item = canvas.create_image(x, y, anchor="center", image=card_image, tags="cards")
+        canvas.tag_raise(image_item)
+"""
+res_button=Button(started)
+res_button.config(width=15,height=1)
+res_button.config(text="테스트")
+res_button.config(command=shoot)
+res_button.pack()
+res_window=canvas.create_window(200,480,anchor=NW, window=res_button)
+"""
 
 started.mainloop()
 start.mainloop()
