@@ -12,7 +12,7 @@ class card:
         self.deck = []
         self.makedeck()
         self.shuffle()
-        self.hand = []
+
 
     def makedeck(self):
         for i in self.mark:
@@ -25,16 +25,14 @@ class card:
     def restarts(self):
         self.hand.clear()
 
-    def dealing(self):
-        for i in range(4):
-            self.hand = [self.deck.pop() for i in range(4)]
 
 
-class user(card):
-    def __init__(self,name):
-        super().__init__()
-        super().dealing()
+class user():
+    def __init__(self,name,deck):
+        self.hand = []
+        self.deck = deck
         self.name=name
+        self.dealing()
         self.showcard()
 
     def restart(self):
@@ -42,30 +40,31 @@ class user(card):
 
     def showcard(self):
         print(f"{self.name}의 카드는{self.hand}")
+    def dealing(self):
+        for i in range(4):
+            self.hand.append(self.deck.pop())
 
 
 
 
-def cardmake(): #2번째실행
-    make=card()
+def cardmake():
+    global deck#2번째실행
+    deck=card()
     print("카드덱 생성완료!")
-    messagebox.showinfo("안내", f""
-                              f"사용자 생성시 가운데 박스에 이름을 입력해주세요!")
 def gstart():  #1번째실행
     start.withdraw()
     started.deiconify()
+    cardmake()
 
 def usermake(): #3번째실행
     global user1
     name="유저(1)"
-    user1=user(name)
-    #entry.delete(0, END)
+    user1=user(name,deck.deck)
     shoot()
 def usermake2():
     global user2
     name = "유저(2)"
-    user2 = user(name)
-    #entry.delete(0, END)
+    user2 = user(name,deck.deck)
     shoot1()
 
 
