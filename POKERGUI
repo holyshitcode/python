@@ -142,7 +142,7 @@ def finalshow():
     entry.pack_forget()
     final()
     fight.pack_forget()
-
+    endshow()
 def print_text(texter):
     class printer:
         def __init__(self, text):
@@ -151,85 +151,111 @@ def print_text(texter):
             self.text.insert(END,str)
     sys.stdout= printer(texter)
 
-def restart():
-    entry.delete(0, END)
-
-    user1.restarts()
-    user2.restarts()
-
-    ubtn.pack()
-    ubtn2.pack()
-    cbtn.pack()
-    entry.pack()
-    fight.pack()
 
 def endgame():
     started.destroy()
     start.destroy()
+def startre():
+    cbtn.pack_forget()
+    entry.pack_forget()
+    ubtn.pack_forget()
+    ubtn2.pack_forget()
+    fight.pack_forget()
+    tryagain.pack_forget()
+    user_text.pack_forget()
+    #result.pack_forget()
+
+
+    cbtn.pack()
+    ubtn.pack()
+    ubtn2.pack()
+    fight.pack()
+    tryagain.pack()
+    user_text.pack()
+    #result.pack()
+    entry.pack()
+
+def clear_text():
+    user_text.delete('1.0',END)
 
 
 
 start=Tk()
 start.geometry("1024x760")
 start.title("Poker Game")
-start.option_add("*Font","맑은고딕 25")
+start.option_add("*Font","맑은고딕 17")
 
 started=Tk()
 started.geometry("1024x760")
 started.title("Poker Game")
-started.option_add("*Font","맑은고딕 25")
+started.option_add("*Font","맑은고딕 17")
 started.withdraw()
 
 btn=Button(start)
-btn.config(width=10,height=5)
+btn.config(width=15,height=5)
 btn.config(text="게임시작")
 btn.config(command=gstart)
 btn.pack()
 
 cbtn=Button(started)
-cbtn.config(width=10,height=1)
+cbtn.config(width=15,height=1)
 cbtn.config(text="카드만들기")
 cbtn.config(command=cardmake)
 cbtn.pack()
 
 entry=Entry(started)
+
 entry.pack()
 
 ubtn=Button(started)
-ubtn.config(width=10,height=1)
+ubtn.config(width=15,height=1)
 ubtn.config(text="유저(1)만들기")
 ubtn.config(command=usermake)
 ubtn.pack()
 
 ubtn2=Button(started)
-ubtn2.config(width=10,height=1)
+ubtn2.config(width=15,height=1)
 ubtn2.config(text="유저(2)만들기")
 ubtn2.config(command=usermake2)
 ubtn2.pack()
 
 fight=Button(started)
-fight.config(width=10,height=1)
+fight.config(width=15,height=1)
 fight.config(text="승패 보기")
 fight.config(command=finalshow)
 fight.pack()
 
 tryagain=Button(started)
-tryagain.config(width=10,height=1)
+tryagain.config(width=15,height=1)
 tryagain.config(text="게임종료")
 tryagain.config(command=endgame)
 tryagain.pack()
 
-user_text=Text(started,width=40, height=20)
+restart_button=Button(started)
+restart_button.config(width=15,height=1)
+restart_button.config(text="지우기")
+restart_button.config(command=clear_text)
+restart_button.pack()
+
+restart1_button=Button(started)
+restart1_button.config(width=15,height=1)
+restart1_button.config(text="재시작")
+restart1_button.config(command=startre)
+restart1_button.pack()
+
+user_text=Text(started,width=40, height=15)
 user_text.pack()
 
 print_text(user_text)
-
+"""
 result=Button(started)
-result.config(width=10,height=3)
+result.config(width=10,height=1)
 result.config(text="족보 보기")
 result.config(command=endshow)
 result.pack()
+"""
+
+
 
 
 start.mainloop()
-
