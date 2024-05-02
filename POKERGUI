@@ -51,14 +51,14 @@ def gstart():  #1번째실행
     started.deiconify()
 def usermake(): #3번째실행
     global user1
-    name=entry.get()
+    name="유저(1)"
     user1=user(name)
-    entry.delete(0, END)
+    #entry.delete(0, END)
 def usermake2():
     global user2
-    name = entry.get()
+    name = "유저(1)"
     user2 = user(name)
-    entry.delete(0, END)
+    #entry.delete(0, END)
 
 
 
@@ -138,8 +138,8 @@ def final():
 def finalshow():
     ubtn.pack_forget()
     ubtn2.pack_forget()
-    cbtn.pack_forget()
-    entry.pack_forget()
+    #cbtn.pack_forget()
+    #entry.pack_forget()
     final()
     fight.pack_forget()
     endshow()
@@ -156,8 +156,8 @@ def endgame():
     started.destroy()
     start.destroy()
 def startre():
-    cbtn.pack_forget()
-    entry.pack_forget()
+    #cbtn.pack_forget()
+    #entry.pack_forget()
     ubtn.pack_forget()
     ubtn2.pack_forget()
     fight.pack_forget()
@@ -166,14 +166,14 @@ def startre():
     #result.pack_forget()
 
 
-    cbtn.pack()
+    #cbtn.pack()
     ubtn.pack()
     ubtn2.pack()
     fight.pack()
     tryagain.pack()
     user_text.pack()
     #result.pack()
-    entry.pack()
+    #entry.pack()
 
 def clear_text():
     user_text.delete('1.0',END)
@@ -196,26 +196,27 @@ btn.config(width=15,height=5)
 btn.config(text="게임시작")
 btn.config(command=gstart)
 btn.pack()
-
+"""
 cbtn=Button(started)
 cbtn.config(width=15,height=1)
 cbtn.config(text="카드만들기")
 cbtn.config(command=cardmake)
 cbtn.pack()
-
+"""
+"""
 entry=Entry(started)
 
 entry.pack()
-
+"""
 ubtn=Button(started)
 ubtn.config(width=15,height=1)
-ubtn.config(text="유저(1)만들기")
+ubtn.config(text="유저(1) 카드뽑기")
 ubtn.config(command=usermake)
 ubtn.pack()
 
 ubtn2=Button(started)
 ubtn2.config(width=15,height=1)
-ubtn2.config(text="유저(2)만들기")
+ubtn2.config(text="유저(2) 카드뽑기")
 ubtn2.config(command=usermake2)
 ubtn2.pack()
 
