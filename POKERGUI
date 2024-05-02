@@ -45,40 +45,61 @@ class user():
             self.hand.append(self.deck.pop())
 
 count=0
-
+user1_wincount=0
+user2_wincount=0
 
 
 def cardmake():
     global deck#2번째실행
     deck=card()
     print("카드덱 생성완료!")
-def gstart():  #1번째실행
+def gstart(): #1번째실행
+    global user1_wincount
+    global user2_wincount
     start.withdraw()
     started.deiconify()
     cardmake()
-
+    user1_wincount = 0
+    user2_wincount = 0
 def usermake(): #3번째실행
     global user1
     global count
+    global user1_wincount
+    global user2_wincount
     name="유저(1)"
     user1=user(name,deck.deck)
     shoot()
     count+=1
-    if count > 9:
+    if count > 8:
         startre()
-        messagebox.showinfo("경고", "OUT OF CARD DECK!.")
+        if user1_wincount>user2_wincount:
+            messagebox.showinfo("Poker Game", f"유저(1):{user1_wincount}회로 승리")
+        elif user1_wincount==user2_wincount:
+            messagebox.showinfo("Poker Game", f"무승부")
+        else:
+            messagebox.showinfo("Poker Game", f"유저(2):{user2_wincount}회로 승리")
         count=0
+        user1_wincount=0; user2_wincount=0
 def usermake2():
     global user2
     global count
+    global user1_wincount
+    global user2_wincount
     name = "유저(2)"
     user2 = user(name,deck.deck)
     shoot1()
     count+=1
-    if count > 9:
+    if count > 8:
         startre()
-        messagebox.showinfo("경고", "OUT OF CARD DECK!.")
-        count=0
+        if user1_wincount > user2_wincount:
+            messagebox.showinfo("Poker Game", f"유저(1):{user1_wincount}회로 승리")
+        elif user1_wincount == user2_wincount:
+            messagebox.showinfo("Poker Game", f"무승부")
+        else:
+            messagebox.showinfo("Poker Game", f"유저(2):{user2_wincount}회로 승리")
+        count = 0
+        user1_wincount = 0;
+        user2_wincount = 0
 
 def endshow():
     print(f"1번 유저의패:{determine(user1.hand)}")
@@ -137,6 +158,8 @@ def determine(user):
         return "high card"
 
 def final():
+    global user1_wincount
+    global user2_wincount
     if compare(determine(user1.hand))==compare(determine(user2.hand)):
         total1=0; total2=0
         for suit, value in user1.hand:
@@ -148,15 +171,23 @@ def final():
         if total1>total2:
             print("1번유저의 승리")
             canvas.create_image(150, 50, anchor=NW, image=win, tags="winner")
+            user1_wincount+=1
+            messagebox.showinfo("Poker Game", f"유저(1)의 승리횟수:{user1_wincount}")
         else:
             print("2번유저의 승리")
             canvas.create_image(150, 250, anchor=NW, image=win, tags="winner")
+            user2_wincount += 1
+            messagebox.showinfo("Poker Game", f"유저(2)의 승리횟수:{user2_wincount}")
     elif compare(determine(user1.hand))< compare(determine(user2.hand)):
         print("1번유저의 승리")
         canvas.create_image(150, 50, anchor=NW, image=win, tags="winner")
+        user1_wincount += 1
+        messagebox.showinfo("Poker Game", f"유저(1)의 승리횟수:{user1_wincount}")
     else:
         print("2번유저의 승리")
         canvas.create_image(150, 250, anchor=NW, image=win, tags="winner")
+        user2_wincount += 1
+        messagebox.showinfo("Poker Game", f"유저(2)의 승리횟수:{user2_wincount}")
 def finalshow():
     final()
     endshow()
@@ -175,29 +206,11 @@ def endgame():
     started.destroy()
     start.destroy()
 def startre():
-    """
-    #cbtn.pack_forget()
-    #entry.pack_forget()
-    ubtn.pack_forget()
-    ubtn2.pack_forget()
-    fight.pack_forget()
-    tryagain.pack_forget()
-    user_text.pack_forget()
-    #result.pack_forget()
 
-
-    #cbtn.pack()
-    ubtn.pack()
-    ubtn2.pack()
-    fight.pack()
-    tryagain.pack()
-    user_text.pack()
-    #result.pack()
-    #entry.pack()
-    """
     clear_text()
     started.withdraw()
     start.deiconify()
+
 
 def clear_text():
     user_text.delete('1.0',END)
