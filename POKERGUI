@@ -2,6 +2,8 @@ from tkinter import *
 import random
 from tkinter import messagebox
 import sys
+from PIL import Image, ImageTk
+
 class card:
     def __init__(self):
         self.mark = ['Spade', 'Club', 'Diamond', 'Heart']
@@ -149,6 +151,8 @@ def print_text(texter):
             self.text= text
         def write(self, str):
             self.text.insert(END,str)
+        def flush(self):
+            pass
     sys.stdout= printer(texter)
 
 
@@ -156,6 +160,7 @@ def endgame():
     started.destroy()
     start.destroy()
 def startre():
+    """
     #cbtn.pack_forget()
     #entry.pack_forget()
     ubtn.pack_forget()
@@ -174,6 +179,10 @@ def startre():
     user_text.pack()
     #result.pack()
     #entry.pack()
+    """
+    clear_text()
+    started.withdraw()
+    start.deiconify()
 
 def clear_text():
     user_text.delete('1.0',END)
@@ -185,17 +194,42 @@ start.geometry("1024x760")
 start.title("Poker Game")
 start.option_add("*Font","맑은고딕 17")
 
-started=Tk()
-started.geometry("1024x760")
+start_canvas=Canvas(start, width=1400,height=760)
+start_canvas.pack()
+back_image = PhotoImage(file=r"C:\Users\spuma\PycharmProjects\pythonProject\pokerbg.gif")
+start_canvas.create_image(0,0, anchor=NW, image=back_image)
+
+
+
+started=Toplevel()
+started.geometry("1024x560")
 started.title("Poker Game")
 started.option_add("*Font","맑은고딕 17")
+
 started.withdraw()
 
+canvas=Canvas(started, width=1500,height=1000)
+canvas.pack()
+#play_image = PhotoImage(file=r"C:\Users\spuma\PycharmProjects\pythonProject\pokerplay.gif")
+#.create_image(100,200,  image=play_image)
+# 이미지 로드
+image = Image.open(r"C:\Users\spuma\PycharmProjects\pythonProject\pokerplay.gif")
+
+# 이미지 크기 조정 (Canvas의 크기에 맞게)
+
+# 이미지를 Tkinter에서 사용 가능한 형태로 변환
+play_image = ImageTk.PhotoImage(image)
+canvas.create_image(0,0,anchor=NW, image=play_image)
+
 btn=Button(start)
-btn.config(width=15,height=5)
+btn.config(width=10,height=15)
 btn.config(text="게임시작")
 btn.config(command=gstart)
+btn.config(bg="green")
+btn.config(font=("Helvetica", 20, "bold"))
+#btn.grid(row=1,column=0,padx=430,pady=300)
 btn.pack()
+button_window=start_canvas.create_window(830,100,anchor=NW, window=btn)
 """
 cbtn=Button(started)
 cbtn.config(width=15,height=1)
@@ -213,39 +247,46 @@ ubtn.config(width=15,height=1)
 ubtn.config(text="유저(1) 카드뽑기")
 ubtn.config(command=usermake)
 ubtn.pack()
+ubtn_window=canvas.create_window(300,180,anchor=NW, window=ubtn)
 
 ubtn2=Button(started)
 ubtn2.config(width=15,height=1)
 ubtn2.config(text="유저(2) 카드뽑기")
 ubtn2.config(command=usermake2)
 ubtn2.pack()
+ubtn2_window=canvas.create_window(490,180,anchor=NW, window=ubtn2)
 
 fight=Button(started)
 fight.config(width=15,height=1)
 fight.config(text="승패 보기")
 fight.config(command=finalshow)
 fight.pack()
+fight_window=canvas.create_window(745,320,anchor=NW, window=fight)
 
 tryagain=Button(started)
 tryagain.config(width=15,height=1)
 tryagain.config(text="게임종료")
 tryagain.config(command=endgame)
 tryagain.pack()
+tryagain_window=canvas.create_window(833,0,anchor=NW, window=tryagain)
 
 restart_button=Button(started)
 restart_button.config(width=15,height=1)
 restart_button.config(text="지우기")
 restart_button.config(command=clear_text)
 restart_button.pack()
+restart_window=canvas.create_window(745,220,anchor=NW, window=restart_button)
 
 restart1_button=Button(started)
 restart1_button.config(width=15,height=1)
 restart1_button.config(text="재시작")
 restart1_button.config(command=startre)
 restart1_button.pack()
+restart1_window=canvas.create_window(800,480,anchor=NW, window=restart1_button)
 
-user_text=Text(started,width=40, height=15)
+user_text=Text(started,width=40, height=13)
 user_text.pack()
+user_text_window=canvas.create_window(300,220,anchor=NW, window=user_text)
 
 print_text(user_text)
 """
@@ -258,5 +299,5 @@ result.pack()
 
 
 
-
+started.mainloop()
 start.mainloop()
