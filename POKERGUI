@@ -59,6 +59,7 @@ def gstart(): #1번째실행
     start.withdraw()
     started.deiconify()
     cardmake()
+    canvas.delete("win_count")
     user1_wincount = 0
     user2_wincount = 0
 def usermake(): #3번째실행
@@ -172,22 +173,46 @@ def final():
             print("1번유저의 승리")
             canvas.create_image(150, 50, anchor=NW, image=win, tags="winner")
             user1_wincount+=1
+            win_rate(user1_wincount)
             messagebox.showinfo("Poker Game", f"유저(1)의 승리횟수:{user1_wincount}")
         else:
             print("2번유저의 승리")
             canvas.create_image(150, 250, anchor=NW, image=win, tags="winner")
             user2_wincount += 1
+            win_rate2(user2_wincount)
             messagebox.showinfo("Poker Game", f"유저(2)의 승리횟수:{user2_wincount}")
     elif compare(determine(user1.hand))< compare(determine(user2.hand)):
         print("1번유저의 승리")
         canvas.create_image(150, 50, anchor=NW, image=win, tags="winner")
         user1_wincount += 1
+        win_rate(user1_wincount)
         messagebox.showinfo("Poker Game", f"유저(1)의 승리횟수:{user1_wincount}")
     else:
         print("2번유저의 승리")
         canvas.create_image(150, 250, anchor=NW, image=win, tags="winner")
         user2_wincount += 1
+        win_rate2(user2_wincount)
         messagebox.showinfo("Poker Game", f"유저(2)의 승리횟수:{user2_wincount}")
+def win_rate(count1):
+    if count1==1:
+        canvas.create_image(500, 350, anchor=NW, image=win_image, tags="win_count")
+    elif count1==2:
+        canvas.create_image(550, 350, anchor=NW, image=win_image2, tags="win_count")
+    elif count1==3:
+        canvas.create_image(600, 350, anchor=NW, image=win_image3, tags="win_count")
+    elif count1==4:
+        canvas.create_image(650, 350, anchor=NW, image=win_image4, tags="win_count")
+
+def win_rate2(count2):
+    if count2==1:
+        canvas.create_image(500, 450, anchor=NW, image=win1_image, tags="win_count")
+    elif count2==2:
+        canvas.create_image(550, 450, anchor=NW, image=win1_image2, tags="win_count")
+    elif count2==3:
+        canvas.create_image(600, 450, anchor=NW, image=win1_image3, tags="win_count")
+    elif count2==4:
+        canvas.create_image(650, 450, anchor=NW, image=win1_image4, tags="win_count")
+
 def finalshow():
     final()
     endshow()
@@ -223,6 +248,7 @@ def clear_text():
 
 
 
+
 start=Tk()
 start.geometry("1024x760")
 start.title("Poker Game")
@@ -230,7 +256,7 @@ start.option_add("*Font","맑은고딕 17")
 
 start_canvas=Canvas(start, width=1400,height=760)
 start_canvas.pack()
-back_image = PhotoImage(file=r"C:\Users\spuma\PycharmProjects\pythonProject\pokerbg.gif")
+back_image = PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\redback.gif")
 start_canvas.create_image(0,0, anchor=NW, image=back_image)
 
 
@@ -244,14 +270,24 @@ started.withdraw()
 
 canvas=Canvas(started, width=1500,height=1000)
 canvas.pack()
-image = Image.open(r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\redback.gif")
+image = Image.open(r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\redblack.png")
 
 
 play_image = ImageTk.PhotoImage(image)
 canvas.create_image(0,0,anchor=NW, image=play_image,tags="background")
-
 canvas.create_text(370, 27, text="Player_1", fill="white", font=("Helvetica", 24))
 canvas.create_text(370, 227, text="Player_2", fill="white", font=("Helvetica", 24))
+canvas.create_text(110, 420, text="Card Draw(Press for Two)", fill="white", font=("Helvetica", 24))
+canvas.create_text(550, 330, text="Player(1)", fill="white", font=("Helvetica", 20))
+canvas.create_text(550, 430, text="Player(2)", fill="white", font=("Helvetica", 20))
+win_image=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\medal.png")
+win_image2=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\medal.png")
+win_image3=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\medal.png")
+win_image4=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\medal.png")
+win1_image=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\medal.png")
+win1_image2=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\medal.png")
+win1_image3=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\medal.png")
+win1_image4=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\medal.png")
 
 #카드 이미지로드
 #클로버
@@ -314,17 +350,17 @@ d14=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\d14.gif
 win=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\win.gif")
 def winning():
     pass
-
-btn=Button(start)
-btn.config(width=10,height=15)
+btn_image=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\startbutton.png")
+btn=Button(start,image=btn_image)
+btn.config(width=1024,height=760)
 btn.config(text="게임시작")
 btn.config(command=gstart)
 btn.config(bd=3)
-btn.config(bg="green")
+btn.config(bg="white")
 btn.config(font=("Helvetica", 20, "bold"))
 #btn.grid(row=1,column=0,padx=430,pady=300)
 btn.pack()
-button_window=start_canvas.create_window(830,100,anchor=NW, window=btn)
+button_window=start_canvas.create_window(0,0,anchor=NW, window=btn)
 """
 cbtn=Button(started)
 cbtn.config(width=15,height=1)
@@ -337,25 +373,27 @@ entry=Entry(started)
 
 entry.pack()
 """
-ubtn=Button(started)
-ubtn.config(width=15,height=1)
+ubtn_image=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\cardss.png")
+ubtn=Button(started,image=ubtn_image)
+ubtn.config(width=100,height=105)
 ubtn.config(text="유저(1) 카드뽑기")
 ubtn.config(font=("Helvetica", 14, "bold"))
 ubtn.config(bg="brown")
 ubtn.config(bd=3)
 ubtn.config(command=usermake)
 ubtn.pack()
-ubtn_window=canvas.create_window(0,450,anchor=NW, window=ubtn)
+ubtn_window=canvas.create_window(10,445,anchor=NW, window=ubtn)
 
-ubtn2=Button(started)
-ubtn2.config(width=15,height=1)
+ubtn2_image=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\cardss.png")
+ubtn2=Button(started,image=ubtn2_image)
+ubtn2.config(width=100,height=105)
 ubtn2.config(text="유저(2) 카드뽑기")
 ubtn2.config(font=("Helvetica", 14, "bold"))
 ubtn2.config(bg="brown")
 ubtn2.config(bd=3)
 ubtn2.config(command=usermake2)
 ubtn2.pack()
-ubtn2_window=canvas.create_window(190,450,anchor=NW, window=ubtn2)
+ubtn2_window=canvas.create_window(190,445,anchor=NW, window=ubtn2)
 
 fight=Button(started)
 fight.config(width=15,height=1)
@@ -367,15 +405,18 @@ fight.config(command=finalshow)
 fight.pack()
 fight_window=canvas.create_window(745,420,anchor=NW, window=fight)
 
-tryagain=Button(started)
-tryagain.config(width=15,height=1)
+
+shutdown=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\shutdown.png")
+tryagain=Button(started, image=shutdown)
+tryagain.config(width=30,height=30)
 tryagain.config(text="게임종료")
 tryagain.config(font=("Helvetica", 14, "bold"))
 tryagain.config(bg="red")
 tryagain.config(bd=3)
 tryagain.config(command=endgame)
 tryagain.pack()
-tryagain_window=canvas.create_window(833,0,anchor=NW, window=tryagain)
+tryagain_window=canvas.create_window(980,5,anchor=NW, window=tryagain)
+
 
 restart_button=Button(started)
 restart_button.config(width=15,height=1)
@@ -387,15 +428,16 @@ restart_button.config(command=clear_text)
 restart_button.pack()
 restart_window=canvas.create_window(745,320,anchor=NW, window=restart_button)
 
-restart1_button=Button(started)
-restart1_button.config(width=15,height=1)
+restart1_image=PhotoImage(file=r"C:\Users\spuma\OneDrive\바탕 화면\포커카드\restart.png")
+restart1_button=Button(started,image=restart1_image)
+restart1_button.config(width=30,height=30)
 restart1_button.config(text="재시작")
 restart1_button.config(font=("Helvetica", 14, "bold"))
 restart1_button.config(bg="yellow")
 restart1_button.config(bd=3)
 restart1_button.config(command=startre)
 restart1_button.pack()
-restart1_window=canvas.create_window(653,0,anchor=NW, window=restart1_button)
+restart1_window=canvas.create_window(938,5,anchor=NW, window=restart1_button)
 
 user_text=Text(started,width=35, height=10)
 user_text.pack()
@@ -501,6 +543,10 @@ def shoot1():
         card_images[(suit, number)] = card_image
         image_item = canvas.create_image(x, y, anchor="center", image=card_image, tags="cards")
         canvas.tag_raise(image_item)
+
+
+
+
 """
 res_button=Button(started)
 res_button.config(width=15,height=1)
