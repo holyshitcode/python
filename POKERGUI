@@ -44,6 +44,7 @@ class user():
         for i in range(4):
             self.hand.append(self.deck.pop())
 
+count=0
 
 
 
@@ -58,15 +59,26 @@ def gstart():  #1번째실행
 
 def usermake(): #3번째실행
     global user1
+    global count
     name="유저(1)"
     user1=user(name,deck.deck)
     shoot()
+    count+=1
+    if count > 9:
+        startre()
+        messagebox.showinfo("경고", "OUT OF CARD DECK!.")
+        count=0
 def usermake2():
     global user2
+    global count
     name = "유저(2)"
     user2 = user(name,deck.deck)
     shoot1()
-
+    count+=1
+    if count > 8:
+        startre()
+        messagebox.showinfo("경고", "OUT OF CARD DECK!.")
+        count=0
 
 def endshow():
     print(f"1번 유저의패:{determine(user1.hand)}")
@@ -146,12 +158,7 @@ def final():
         print("2번유저의 승리")
         canvas.create_image(150, 250, anchor=NW, image=win, tags="winner")
 def finalshow():
-    ubtn.pack_forget()
-    ubtn2.pack_forget()
-    #cbtn.pack_forget()
-    #entry.pack_forget()
     final()
-    fight.pack_forget()
     endshow()
 def print_text(texter):
     class printer:
@@ -198,6 +205,7 @@ def clear_text():
     user2.restart()
     canvas.delete("winner")
     canvas.delete("cards")
+
 
 
 
