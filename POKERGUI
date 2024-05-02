@@ -75,7 +75,7 @@ def usermake2():
     user2 = user(name,deck.deck)
     shoot1()
     count+=1
-    if count > 8:
+    if count > 9:
         startre()
         messagebox.showinfo("경고", "OUT OF CARD DECK!.")
         count=0
