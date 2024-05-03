@@ -3,7 +3,7 @@ import random
 from tkinter import messagebox
 import sys
 from PIL import Image, ImageTk
-
+import pygame
 class card:
     def __init__(self):
         self.mark = ['Spade', 'Club', 'Diamond', 'Heart']
@@ -81,6 +81,7 @@ def usermake(): #3번째실행
             messagebox.showinfo("Poker Game", f"유저(2):{user2_wincount}회로 승리")
         count=0
         user1_wincount=0; user2_wincount=0
+    audio(cardsound)
     toggle_image()
 def usermake2():
     global user2
@@ -102,6 +103,7 @@ def usermake2():
         count = 0
         user1_wincount = 0;
         user2_wincount = 0
+    audio(cardsound)
     toggle_image1()
 
 def endshow():
@@ -589,7 +591,9 @@ def toggle_image1():
             canvas.itemconfig(cardh5_button_window, state="hidden")
             canvas.itemconfig(cardh6_button_window, state="hidden")
             canvas.itemconfig(cardh7_button_window, state="hidden")
-
+def audio(file_path):
+    pygame.mixer.init()
+    cardsound.play()
 #카드가리개
 cardh_image=PhotoImage(file=r"./포커카드/cardhide.gif")
 cardh_button=Button(started)
@@ -661,6 +665,14 @@ open_button1.config(image=open_image1)
 open_button1.config(command=toggle_image1)
 open_button1.config(width=45,height=20)
 open_button1_window=canvas.create_window(435,213,anchor=NW, window=open_button1)
+
+pygame.mixer.init()
+volume=0.4
+cardsound = pygame.mixer.Sound(r"./포커카드/cardsound.mp3")
+bgm=r"./포커카드/bgm.mp3"
+pygame.mixer.music.load(bgm)
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(volume)
 def shoot():
     global card_images
     global user1
