@@ -3,7 +3,7 @@ import random
 from tkinter import messagebox
 import sys
 from PIL import Image, ImageTk
-
+import pygame
 class card:
     def __init__(self):
         self.mark = ['Spade', 'Club', 'Diamond', 'Heart']
@@ -81,6 +81,12 @@ def usermake(): #3번째실행
             messagebox.showinfo("Poker Game", f"유저(2):{user2_wincount}회로 승리")
         count=0
         user1_wincount=0; user2_wincount=0
+    #cardh_button_window.pack()
+    #cardh1_button_window.pack()
+    #cardh2_button_window.pack()
+    #cardh3_button_window.pack()
+    audio(cardsound)
+    toggle_image()
 def usermake2():
     global user2
     global count
@@ -101,7 +107,8 @@ def usermake2():
         count = 0
         user1_wincount = 0;
         user2_wincount = 0
-
+    audio(cardsound)
+    toggle_image1()
 def endshow():
     print(f"1번 유저의패:{determine(user1.hand)}")
     print(f"2번 유저의패:{determine(user2.hand)}")
@@ -553,6 +560,126 @@ card_images ={
 
     }
 }
+def hide():
+    cardh_button.pack_forget()
+def toggle_image():
+    current_state = canvas.itemcget(cardh_button_window, "state")
+    current_state1 = canvas.itemcget(cardh1_button_window, "state")
+    current_state2 = canvas.itemcget(cardh2_button_window, "state")
+    current_state3 = canvas.itemcget(cardh3_button_window, "state")
+    statelist=[current_state,current_state1,current_state2,current_state3]
+    for i in statelist:
+        if i == "hidden" :
+            canvas.itemconfig(cardh_button_window, state="normal")
+            canvas.itemconfig(cardh1_button_window, state="normal")
+            canvas.itemconfig(cardh2_button_window, state="normal")
+            canvas.itemconfig(cardh3_button_window, state="normal")
+        else:
+            canvas.itemconfig(cardh_button_window, state="hidden")
+            canvas.itemconfig(cardh1_button_window, state="hidden")
+            canvas.itemconfig(cardh2_button_window, state="hidden")
+            canvas.itemconfig(cardh3_button_window, state="hidden")
+def toggle_image1():
+    current_state4 = canvas.itemcget(cardh4_button_window, "state")
+    current_state5 = canvas.itemcget(cardh5_button_window, "state")
+    current_state6 = canvas.itemcget(cardh6_button_window, "state")
+    current_state7 = canvas.itemcget(cardh7_button_window, "state")
+    statelist=[current_state4,current_state5,current_state6,current_state7]
+    for i in statelist:
+        if i == "hidden" :
+            canvas.itemconfig(cardh4_button_window, state="normal")
+            canvas.itemconfig(cardh5_button_window, state="normal")
+            canvas.itemconfig(cardh6_button_window, state="normal")
+            canvas.itemconfig(cardh7_button_window, state="normal")
+        else:
+            canvas.itemconfig(cardh4_button_window, state="hidden")
+            canvas.itemconfig(cardh5_button_window, state="hidden")
+            canvas.itemconfig(cardh6_button_window, state="hidden")
+            canvas.itemconfig(cardh7_button_window, state="hidden")
+def audio(file_path):
+    pygame.mixer.init()
+    cardsound.play()
+
+#카드가리개
+cardh_image=PhotoImage(file=r".\포커카드\cardhide.gif")
+cardh_button=Button(started)
+cardh_button.config(image=cardh_image)
+cardh_button.config(width=80,height=120)
+#cardh_button.config(command=toggle_image)
+cardh_button_window=canvas.create_window(55,40,anchor=NW, window=cardh_button)
+
+cardh1_image=PhotoImage(file=r".\포커카드\cardhide.gif")
+cardh1_button=Button(started)
+cardh1_button.config(image=cardh_image)
+cardh1_button.config(width=80,height=120)
+#cardh1_button.config(command=toggle_image)
+cardh1_button_window=canvas.create_window(155,40,anchor=NW, window=cardh1_button)
+
+cardh2_image=PhotoImage(file=r".\포커카드\cardhide.gif")
+cardh2_button=Button(started)
+cardh2_button.config(image=cardh_image)
+cardh2_button.config(width=80,height=120)
+#cardh2_button.config(command=toggle_image)
+cardh2_button_window=canvas.create_window(255,40,anchor=NW, window=cardh2_button)
+
+cardh3_image=PhotoImage(file=r".\포커카드\cardhide.gif")
+cardh3_button=Button(started)
+cardh3_button.config(image=cardh_image)
+cardh3_button.config(width=80,height=120)
+#cardh3_button.config(command=toggle_image)
+cardh3_button_window=canvas.create_window(355,40,anchor=NW, window=cardh3_button)
+
+#아래쪽 카드가리개
+#cardh_image=PhotoImage(file=r".\포커카드\cardhide.gif")
+cardh4_button=Button(started)
+cardh4_button.config(image=cardh_image)
+cardh4_button.config(width=80,height=120)
+#cardh_button.config(command=toggle_image)
+cardh4_button_window=canvas.create_window(55,240,anchor=NW, window=cardh4_button)
+
+#cardh1_image=PhotoImage(file=r".\포커카드\cardhide.gif")
+cardh5_button=Button(started)
+cardh5_button.config(image=cardh_image)
+cardh5_button.config(width=80,height=120)
+#cardh1_button.config(command=toggle_image)
+cardh5_button_window=canvas.create_window(155,240,anchor=NW, window=cardh5_button)
+
+#cardh6_image=PhotoImage(file=r".\포커카드\cardhide.gif")
+cardh6_button=Button(started)
+cardh6_button.config(image=cardh_image)
+cardh6_button.config(width=80,height=120)
+#cardh2_button.config(command=toggle_image)
+cardh6_button_window=canvas.create_window(255,240,anchor=NW, window=cardh6_button)
+
+#cardh7_image=PhotoImage(file=r".\포커카드\cardhide.gif")
+cardh7_button=Button(started)
+cardh7_button.config(image=cardh_image)
+cardh7_button.config(width=80,height=120)
+#cardh3_button.config(command=toggle_image)
+cardh7_button_window=canvas.create_window(355,240,anchor=NW, window=cardh7_button)
+#카드가리개 오픈
+open_image=PhotoImage(file=r".\포커카드\opene.gif")
+open_button=Button(started)
+open_button.config(image=open_image)
+open_button.config(command=toggle_image)
+open_button.config(width=45,height=20)
+open_button_window=canvas.create_window(431,13,anchor=NW, window=open_button)
+
+open_image1=PhotoImage(file=r".\포커카드\opene.gif")
+open_button1=Button(started)
+open_button1.config(image=open_image1)
+open_button1.config(command=toggle_image1)
+open_button1.config(width=45,height=20)
+open_button1_window=canvas.create_window(435,213,anchor=NW, window=open_button1)
+
+pygame.mixer.init()
+volume=0.4
+cardsound = pygame.mixer.Sound(r"./포커카드/cardsound.mp3")
+bgm=r"./포커카드/bgm.mp3"
+pygame.mixer.music.load(bgm)
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(volume)
+
 def shoot():
     global card_images
     global user1
