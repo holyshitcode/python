@@ -244,7 +244,18 @@ def clear_text():
     canvas.delete("winner")
     canvas.delete("cards")
 
+def login_text():
+    global id,passwd
+    id = login_entry.get()
+    passwd = passwd_entry.get()
+    login_excess()
 
+def login_excess():
+    if id=="python" and passwd=="good":
+        start.deiconify()
+        login.withdraw()
+    else:
+        messagebox.showinfo("Login Denied", f"로그인실패! 아이디:python 비밀번호:good 입력!")
 
 
 
@@ -271,6 +282,33 @@ started.withdraw()
 canvas=Canvas(started, width=1500,height=1000)
 canvas.pack()
 image = Image.open(r"./포커카드/redblack.png")
+
+login=Toplevel()
+login.geometry("300x300")
+login.title("Poker Game Login")
+login_image= PhotoImage(file=r"./포커카드/redblack.png")
+login_canvas=Canvas(login, width=300,height=300)
+login_canvas.pack()
+login_canvas.create_image(0,0, anchor=NW, image=login_image)
+login_canvas.create_text(65, 85, text="ID", fill="white", font=("Helvetica", 24))
+login_canvas.create_text(115, 155, text="Password", fill="white", font=("Helvetica", 24))
+#login.withdraw()
+
+login_entry = Entry(login)
+login_entry.place(x=50,y=100)
+
+passwd_entry = Entry(login)
+passwd_entry.place(x=50,y=170)
+
+login_button=Button(login)
+login_button.config(width=5,height=1)
+login_button.config(text="로그인")
+login_button.config(command=login_text)
+login_button.config(bd=3)
+login_button.config(bg="white")
+login_button.config(font=("Helvetica", 12, "bold"))
+login_button.pack()
+button_login=login_canvas.create_window(220,220,anchor=NW, window=login_button)
 
 
 play_image = ImageTk.PhotoImage(image)
