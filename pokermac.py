@@ -261,7 +261,18 @@ def login_excess():
     else:
         messagebox.showinfo("Login Denied", f"로그인실패! 아이디:python 비밀번호:good 입력!")
 
+def mute():
+    global volume, origin_volume
+    if volume > 0:
+        origin_volume = volume
+        volume = 0
+        pygame.mixer.music.set_volume(0)
+        cardsound.set_volume(0)
 
+    else:
+        volume = origin_volume
+        pygame.mixer.music.set_volume(volume)
+        cardsound.set_volume(volume)
 
 
 start=Tk()
@@ -666,6 +677,12 @@ open_button1.config(command=toggle_image1)
 open_button1.config(width=45,height=20)
 open_button1_window=canvas.create_window(435,213,anchor=NW, window=open_button1)
 
+mute_image=PhotoImage(file=r"./포커카드/mute.gif")
+mute_button=Button(started,width=45,height=35,text="mute",command=mute)
+mute_button.config(image=mute_image)
+mute_button_window=canvas.create_window(885,4,anchor=NW, window=mute_button)
+
+origin_volume=0
 pygame.mixer.init()
 volume=0.4
 cardsound = pygame.mixer.Sound(r"./포커카드/cardsound.mp3")
