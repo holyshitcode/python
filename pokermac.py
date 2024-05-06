@@ -245,6 +245,7 @@ def print_text(texter):
     sys.stdout= printer(texter)
 
 
+
 def endgame():
     started.destroy()
     start.destroy()
@@ -261,6 +262,7 @@ def clear_text():
     user2.restart()
     canvas.delete("winner")
     canvas.delete("cards")
+
 
 def login_text():
     global id,passwd
@@ -289,11 +291,24 @@ def mute():
         cardsound.set_volume(volume)
 
 #기록저장 파일
-#with open('rank.txt', 'a') as file:
-    #rank_open=file.read()
+def rankshow():
+    with open('rank.txt', 'r') as file:
+        rank_open=file.read()
+        print(rank_open)
+        print_text(rank_text)
 
 
+def ranking_go():
+    started.withdraw()
+    ranking.deiconify()
 
+def ranking_back():
+    ranking.withdraw()
+    started.deiconify()
+    print_text(user_text)
+
+def ranking_delete():
+    rank_text.delete('1.0', END)
 
 start=Tk()
 start.geometry("1024x760")
@@ -334,6 +349,13 @@ login_entry.place(x=50,y=100)
 
 passwd_entry = Entry(login)
 passwd_entry.place(x=50,y=170)
+
+#랭킹창
+ranking=Toplevel()
+ranking.geometry("1024x670")
+ranking.title("RANKING")
+ranking.withdraw()
+
 
 login_button=Button(login)
 login_button.config(width=5,height=1)
@@ -517,6 +539,21 @@ user_text.pack()
 user_text_window=canvas.create_window(580,50,anchor=NW, window=user_text)
 
 print_text(user_text)
+
+rank_text=Text(ranking,width=35, height=20)
+rank_text.pack()
+
+rank_go=Button(started,text="rank",command=ranking_go,width=5,height=1)
+rank_go.place(x=500,y=100)
+
+rank_back=Button(ranking,text="back",command=ranking_back,width=5,height=1)
+rank_back.pack()
+
+ranking_show=Button(ranking,text="show",command=rankshow,width=5,height=1)
+ranking_show.pack()
+
+ranking_del=Button(ranking,text="delete",command=ranking_delete,width=5,height=1)
+ranking_del.pack()
 """
 result=Button(started)
 result.config(width=10,height=1)
