@@ -4,6 +4,7 @@ from tkinter import messagebox
 import sys
 from PIL import Image, ImageTk
 import pygame
+import datetime
 class card:
     def __init__(self):
         self.mark = ['Spade', 'Club', 'Diamond', 'Heart']
@@ -47,7 +48,8 @@ class user():
 count=0
 user1_wincount=0
 user2_wincount=0
-
+date_origin=datetime.datetime.now()
+date_string = date_origin.strftime(("%Y-%m-%d %H:%M:%S"))
 
 def cardmake():
     global deck#2번째실행
@@ -75,10 +77,16 @@ def usermake(): #3번째실행
         startre()
         if user1_wincount>user2_wincount:
             messagebox.showinfo("Poker Game", f"유저(1):{user1_wincount}회로 승리")
+            with open('rank.txt', 'a') as file:
+                file.write(f"\n{date_string}:유저(1){user1_wincount}회로 승리.")
         elif user1_wincount==user2_wincount:
             messagebox.showinfo("Poker Game", f"무승부")
+            with open('rank.txt', 'a') as file:
+                file.write(f"\n{date_string}:무승부.")
         else:
             messagebox.showinfo("Poker Game", f"유저(2):{user2_wincount}회로 승리")
+            with open('rank.txt', 'a') as file:
+                file.write(f"\n{date_string}:유저(2){user2_wincount}회로 승리.")
         count=0
         user1_wincount=0; user2_wincount=0
     audio(cardsound)
@@ -96,10 +104,16 @@ def usermake2():
         startre()
         if user1_wincount > user2_wincount:
             messagebox.showinfo("Poker Game", f"유저(1):{user1_wincount}회로 승리")
+            with open('rank.txt', 'a') as file:
+                file.write(f"\n{date_string}:유저(1){user1_wincount}회로 승리.")
         elif user1_wincount == user2_wincount:
             messagebox.showinfo("Poker Game", f"무승부")
+            with open('rank.txt', 'a') as file:
+                file.write(f"\n{date_string}:무승부.")
         else:
             messagebox.showinfo("Poker Game", f"유저(2):{user2_wincount}회로 승리")
+            with open('rank.txt', 'a') as file:
+                file.write(f"\n{date_string}:유저(2){user2_wincount}회로 승리.")
         count = 0
         user1_wincount = 0;
         user2_wincount = 0
@@ -273,6 +287,12 @@ def mute():
         volume = origin_volume
         pygame.mixer.music.set_volume(volume)
         cardsound.set_volume(volume)
+
+#기록저장 파일
+#with open('rank.txt', 'a') as file:
+    #rank_open=file.read()
+
+
 
 
 start=Tk()
