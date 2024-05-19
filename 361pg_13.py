@@ -7,3 +7,4 @@ def get_avg():
 
 print(get_avg())
 
+#123123123
