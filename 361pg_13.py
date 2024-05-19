@@ -6,4 +6,4 @@ def get_avg():
     return sum(score)/4
 
 print(get_avg())
-    
+
