@@ -1,0 +1,200 @@
+import os
+import platform
+from selenium import webdriver
+from selenium.common import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+maxPage = 30 #최대 페이지수
+duplicateCount = 0
+downCounter = 0
+userId = 
+userPwd = 
+webPath = 'https://kdts.intertek.co.kr/login.aspx'
+
+
+# 운영체제에 맞게 기본 다운로드 경로 설정
+if platform.system() == 'Windows':
+    download_dir = os.path.join(os.environ['USERPROFILE'], 'Downloads')
+else:
+    download_dir = os.path.join(os.environ['HOME'], 'Downloads')
+
+# 다운로드 경로가 없다면 폴더 생성
+if not os.path.exists(download_dir):
+    os.makedirs(download_dir)
+
+# 크롬 옵션 설정
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument(f'--headless')
+chrome_options.add_argument(f'--disable-gpu')
+chrome_options.add_argument(f'--no-sandbox')
+chrome_options.add_argument(f'--disable-dev-shm-usage')
+chrome_options.add_argument(f'--download.default_directory={download_dir}')  # 다운로드 디렉토리 지정
+
+driver = webdriver.Chrome(options=chrome_options)
+driver.get(webPath)
+
+# 로그인
+idBox = driver.find_element(By.XPATH, '//*[@id="txtUSER_ID"]')
+passBox = driver.find_element(By.XPATH, '//*[@id="txtPWD"]')
+idBox.send_keys(userId)
+passBox.send_keys(userPwd)
+
+loginBt = driver.find_element(By.XPATH, '//*[@id="btnLogin"]')
+loginBt.click()
+
+print("기본설정은 1주일치 다운로드됩니다.")
+flag = int(input("1: 이름으로 검색 및 다운, 2: 1개월치 검색 및 다운, 3: 둘다"))
+print("\n")
+if flag == 1:
+    name = input("이름을 입력해주세요:")
+    searchBox = driver.find_element(By.XPATH, '//*[@id="tblCustServiceList_filter"]/label/input')
+    searchBox.send_keys(name)
+elif flag == 2:
+    try:
+        # 1개월 버튼 클릭 대기 후 JavaScript로 클릭
+        oneMonthBox = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="btnMonthSearch"]'))
+        )
+        driver.execute_script("arguments[0].click();", oneMonthBox)
+        print("1개월 검색 버튼이 성공적으로 클릭되었습니다.")
+    except TimeoutException:
+        print("1개월 검색 버튼을 찾을 수 없거나 클릭할 수 없습니다.")
+    time.sleep(3)
+elif flag == 3:
+    name = input("이름을 입력해주세요:")
+    searchBox = driver.find_element(By.XPATH, '//*[@id="tblCustServiceList_filter"]/label/input')
+    searchBox.send_keys(name)
+    try:
+        oneMonthBox = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="btnMonthSearch"]'))
+        )
+        driver.execute_script("arguments[0].click();", oneMonthBox)
+        print("1개월 검색 버튼이 성공적으로 클릭되었습니다.")
+    except TimeoutException:
+        print("1개월 검색 버튼을 찾을 수 없거나 클릭할 수 없습니다.")
+    time.sleep(3)
+
+
+# 다운조건
+orderLists = set()  # 중복을 방지하기 위해 set 사용
+if os.path.exists('orderList.txt'):
+    with open('orderList.txt', 'r') as f:
+        orderLists = set(line.strip() for line in f.readlines())  # 공백 및 줄 바꿈 제거한 항목만 저장
+
+# 다음 버튼 대기
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="tblCustServiceList_next"]/a')))
+
+
+newfile = open('orderInfo.txt', 'w')
+
+# 페이지가 마지막 페이지인지 확인하는 함수
+def is_last_page(driver):
+    try:
+        # 페이지 번호 확인: 마지막 페이지인지 확인하기 위해 페이지 번호를 찾음
+        page_numbers = driver.find_elements(By.XPATH, '//*[@id="tblCustServiceList_paginate"]')
+        if page_numbers:
+            last_page = page_numbers[-1].text.strip()
+            current_page = driver.find_element(By.XPATH, '//*[@id="tblCustServiceList_paginate"]').text.strip()
+            return current_page == last_page
+        return False
+    except Exception as e:
+        print("다음 버튼 확인 중 오류 발생:", e)
+        return False
+
+
+# 파일 쓰기
+with open('orderList.txt', 'a') as f:
+    for j in range(maxPage):  # 최대 30페이지 (필요시 조정)
+        # 테이블 행 수를 동적으로 가져오기
+        rows = driver.find_elements(By.XPATH, '//*[@id="tblCustServiceList"]/tbody/tr')
+        row_count = len(rows)
+
+        for i in range(1, row_count + 1):
+            try:
+                downloadBox = WebDriverWait(driver, 1).until(
+                    EC.element_to_be_clickable(
+                        (By.XPATH, f'//*[@id="tblCustServiceList"]/tbody/tr[{i}]/td[12]/button[2]'))
+                )
+                downloadOrderName = driver.find_element(By.XPATH, f'//*[@id="tblCustServiceList"]/tbody/tr[{i}]/td[2]')
+                releaseNumber = driver.find_element(By.XPATH, f'//*[@id="tblCustServiceList"]/tbody/tr[{i}]/td[4]')
+
+                # 스타일 번호가 존재할 경우만 가져오기
+                try:
+                    styleNumber = driver.find_element(By.XPATH, f'//*[@id="tblCustServiceList"]/tbody/tr[{i}]/td[6]')
+                    styleNumber_text = styleNumber.text.strip()
+                except Exception as e:
+                    styleNumber_text = None  # 스타일 번호가 없으면 None 처리
+
+                download_name = downloadOrderName.text.strip()
+                # 이미 다운로드한 항목인지 확인
+                if download_name != '' and download_name in orderLists:
+                    print(f"{download_name} - 이미 다운로드됨")
+                    duplicateCount +=1
+                    if duplicateCount ==row_count:
+                        exit("exit")
+                    continue
+
+                # 요소가 들어있는 div로 스크롤 이동
+                scrollable_div = driver.find_element(By.XPATH,
+                                                     '//*[@id="tblCustServiceList_wrapper"]/div/div[3]/div/div[2]')
+                driver.execute_script("arguments[0].scrollLeft = arguments[1];", scrollable_div, 300)  # 300px 만큼 수평 스크롤
+
+                # downloadBox 클릭
+                driver.execute_script("arguments[0].scrollIntoView(true);", downloadBox)
+                downloadBox.click()
+                downCounter += 1
+                print(f"Download for : {downCounter} files")
+                time.sleep(1)  # 다운로드 대기
+
+                # 다운로드된 파일 이름 변경
+                time.sleep(0.5)  # 파일 다운로드 시간 대기 (필요시 조정)
+                downloaded_files = os.listdir(download_dir)
+                downloaded_files = sorted(downloaded_files,
+                                          key=lambda x: os.path.getmtime(os.path.join(download_dir, x)))
+
+                if downloaded_files:
+                    last_downloaded_file = downloaded_files[-1]
+                    file_extension = last_downloaded_file.split('.')[-1]
+                    if file_extension.lower() in ['pdf', 'xls', 'docx']:  # 확장자가 PDF, 엑셀, 워드일 때만 처리
+                        new_filename = f"{releaseNumber.text.strip()}-{downloadOrderName.text.strip()}-{styleNumber_text if styleNumber_text else 'No_Style'}.{file_extension}"
+                        new_filename = new_filename.replace(" ", "_").replace("/", "_")  # 공백 및 특수문자 처리
+                        os.rename(os.path.join(download_dir, last_downloaded_file),
+                                  os.path.join(download_dir, new_filename))
+                        print(f"File renamed to: {new_filename}")
+                        # 다운로드 완료 후에만 orderList.txt에 항목 추가
+                        orderLists.add(download_name)  # 중복 방지를 위해 set에 추가
+                        f.write(download_name + '\n')  # 새로 다운로드한 항목을 기록
+                        newfile.write(
+                            f"Order Name: {download_name}, Release Number: {releaseNumber.text.strip()}, Style Number: {styleNumber_text if styleNumber_text else 'No_Style'}\n")
+                    else:
+                        print(f"Skipping unsupported file type: {last_downloaded_file}")
+
+            except Exception as e:
+                continue
+
+        # 마지막 페이지인지 확인하고 종료
+        if is_last_page(driver):
+            print("마지막 페이지입니다. 다운로드를 종료합니다.")
+            break  # 마지막 페이지에 도달하면 종료
+
+        # 다음 페이지로 이동
+        try:
+            nextBtn = WebDriverWait(driver, 1).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="tblCustServiceList_next"]/a'))
+            )
+            if nextBtn and "disabled" not in nextBtn.get_attribute("class"):
+                driver.execute_script("arguments[0].scrollIntoView();", nextBtn)
+                nextBtn.click()
+                time.sleep(2)  # 페이지 로딩 대기
+            else:
+                print("다음 페이지로 이동할 수 없습니다. 다운로드 종료.")
+                break  # 다음 페이지로 이동할 수 없으면 종료
+
+        except Exception as e:
+            print("다음 페이지로 이동할 수 없습니다:", e)
+            break  # 다음 페이지로 이동할 수 없으면 종료
+
+newfile.close()  # 파일을 닫습니다.
+driver.quit()  # 브라우저 종료
